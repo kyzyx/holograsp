@@ -15,3 +15,12 @@
 # Visual Studio Output Files
 src/Debug/*
 src/Release/*
+
+# Latex Output Files
+report/*.aux
+report/*.ps
+report/*.log
+report/*.bbl
+report/*.blg
+report/*.out
+report/report.pdf
