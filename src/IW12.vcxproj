@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2B3C8F7D-96D8-4DC6-A234-D6431690A337}</ProjectGuid>
+    <RootNamespace>IW12</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="OpenGL.props" />
+    <Import Project="PCSDK_debug.props" />
+    <Import Project="D3D11.props" />
+    <Import Project="tmp.props" />
+    <Import Project="SDL.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="SDL.props" />
+    <Import Project="OpenGL.props" />
+    <Import Project="PCSDK_release.props" />
+    <Import Project="D3D11_release.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>IW12</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <UndefinePreprocessorDefinitions>_MBCS</UndefinePreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="app.h" />
+    <ClInclude Include="CameraCtlHandler.h" />
+    <ClInclude Include="ClosestPointCtlHandler.h" />
+    <ClInclude Include="D3DMesh.h" />
+    <ClInclude Include="D3DRenderer.h" />
+    <ClInclude Include="DirectXApp.h" />
+    <ClInclude Include="ExperimentalApp.h" />
+    <ClInclude Include="Filter.h" />
+    <ClInclude Include="GestureCtlHandler.h" />
+    <ClInclude Include="GLApp.h" />
+    <ClInclude Include="GLMesh.h" />
+    <ClInclude Include="GLRenderer.h" />
+    <ClInclude Include="HandController.h" />
+    <ClInclude Include="HandData.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IWApp.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshCtlHandler.h" />
+    <ClInclude Include="ModelController.h" />
+    <ClInclude Include="nvapi.h" />
+    <ClInclude Include="nvstereo.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SDLHandler.h" />
+    <ClInclude Include="SpeedTestController.h" />
+    <ClInclude Include="StatusScreenHandler.h" />
+    <ClInclude Include="StereoApp.h" />
+    <ClInclude Include="UtilPipelineInputManager.h" />
+    <ClInclude Include="Visualizer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="app.cpp" />
+    <ClCompile Include="CameraCtlHandler.cpp" />
+    <ClCompile Include="ClosestPointCtlHandler.cpp" />
+    <ClCompile Include="D3DMesh.cpp" />
+    <ClCompile Include="D3DRenderer.cpp" />
+    <ClCompile Include="DirectXApp.cpp" />
+    <ClCompile Include="ExperimentalApp.cpp" />
+    <ClCompile Include="Filter.cpp" />
+    <ClCompile Include="GestureCtlHandler.cpp" />
+    <ClCompile Include="GLApp.cpp" />
+    <ClCompile Include="GLMesh.cpp" />
+    <ClCompile Include="GLRenderer.cpp" />
+    <ClCompile Include="HandController.cpp" />
+    <ClCompile Include="HandData.cpp" />
+    <ClCompile Include="IWApp.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshCtlHandler.cpp" />
+    <ClCompile Include="ModelController.cpp" />
+    <ClCompile Include="nvstereo.cpp" />
+    <ClCompile Include="SDLHandler.cpp" />
+    <ClCompile Include="SpeedTestController.cpp" />
+    <ClCompile Include="StereoApp.cpp" />
+    <ClCompile Include="UtilPipelineInputManager.cpp" />
+    <ClCompile Include="Visualizer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="IW12.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="is.vs" />
+    <None Include="ps.ps" />
+    <None Include="ps_1light.ps" />
+    <None Include="tetra.off" />
+    <None Include="tps.ps" />
+    <None Include="tvs.vs" />
+    <None Include="vs.vs" />
+    <None Include="vs_1light.vs" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

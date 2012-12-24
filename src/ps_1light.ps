@@ -1,0 +1,28 @@
+cbuffer PointLightBuffer {
+	float4 lightpos;
+	float4 diffuse;
+	float4 ambient;
+}
+struct PixelInput {
+  float4 position : SV_POSITION;
+  float4 color : COLOR;
+  float3 normal : NORMAL;
+  float3 lightpos : TEXCOORD1;
+};
+
+float4 PS(PixelInput input) : SV_TARGET {
+	float4 lighti;
+	float4 colori;
+	lighti = saturate(dot(input.normal, input.lightpos));
+	colori = diffuse*lighti;
+	colori = input.color*saturate(colori);
+	return colori;
+}
+
+float4 DirPS(PixelInput input) : SV_TARGET {
+	float4 dir;
+	float4 intensity;
+	dir = -lightpos;
+	intensity = input.color * saturate(ambient + (diffuse * saturate(dot(input.normal, dir))));
+	return intensity;
+}
