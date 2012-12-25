@@ -23,4 +23,5 @@ report/*.log
 report/*.bbl
 report/*.blg
 report/*.out
-report/report.pdf
+report/*.toc
+report/*.pdf
