@@ -33,7 +33,7 @@ feedback and natural gestural interface was by far the most effective and intuit
 \newpage
 
 \section{Introduction}
-% FIXME
+
 In this paper we make two main contributions:
 \begin{itemize}
 \item We present Holograsp, a 3D manipulation system, to show the feasibility of colocating display and gestural spaces.
@@ -110,7 +110,9 @@ evaluation of the Holodesk system also involved a user study, in which they comp
 stereoscopic display systems were better than aligned non-stereoscopic systems with appropriate occlusion cues, and unaligned displays were slowest \cite{holodesk}.
 We borrow our primary experimental procedure from \cite{study1, study2}.
 % ------------------------------------- IMPLEMENTATION --------------------------------------
-\section{Holograsp Implementation}
+\section{The Holograsp System}
+\subsection{Overview}
+%TODO
 \subsection{Software Architecture}
 Holograsp uses a heavily abstracted engine to facilitate substitution of input and output devices, client applications, and SDKs.
 The architecture of the engine invites the construction of many client applications; Holograsp provides the alignment of the
@@ -499,7 +501,7 @@ the interface choices best fitting a certain criterion, as well as a short justi
 \subsection{Results}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\textwidth]{figures/aggmean.pdf}
+\includegraphics[width=0.7\textwidth]{figures/aggmean.png}
 \caption{Mean placement times for each interface in a. time until first
 selection, b. time from first selection until task completion, and c. total task
 completion time. All data is shown with 95\% confidence intervals.}
@@ -507,9 +509,9 @@ completion time. All data is shown with 95\% confidence intervals.}
 \end{figure}
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{figures/distribution.png}
+\includegraphics[width=0.7\textwidth]{figures/distribution.png}
 \caption{Distribution of total placement times for each interface. Whiskers are
-1.5 IQR in length. Note that three outliers for the 2D gesture interface are not
+ at most 1.5 IQR in length. Note that three outliers $> 40000$ for the 2D gesture interface are not
 shown}
 \label{fig:distr}
 \end{figure}
@@ -519,12 +521,12 @@ of mean placement times in Figure~\ref{fig:distr}. These plots show that the ges
 outliers. Furthermore, a repeated measures ANOVA on the results showed a strong effect of
 interface on completion time ($F_{3,39}=7.19, p < 0.001$).
 However, no general conclusions can be drawn between the mouse interfaces or the 3D gestural interface; post-hoc analysis showed no significant differences
-in mouse interface times ($p > 0.05$) or between the 3D-gesture and either mouse
-interface ($p > 0.05$).
+in mouse interface times ($p > 0.05$) or between the 3D-gesture and either mouse interface ($p > 0.05$). It is clear, however, that the 2D-gesture interface
+was worse than the other interfaces ($p < 0.01$).
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{figures/mean.pdf}
+\includegraphics[width=0.7\textwidth]{figures/mean.png}
 \caption{Mean placement times for each interface, separated by whether
 stereoscopic perception problems were expressed. 95\% confidence intervals are
 shown.}
@@ -553,10 +555,10 @@ by the 2D mouse mean completion time.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.5\textwidth]{figures/mousebygesture3d.png}
+\includegraphics[width=0.7\textwidth]{figures/mousebygesture3d.png}
 \caption{Relative completion times for 3D mouse and 2D mouse interfaces,
 normalized by 3D gesture completion times. \\
-Legend: Red x denotes severe problems with stereoscopic perception. Red +
+Legend: Red x denotes severe problems with stereoscopic perception. Magenta +
 denotes occasional problems with stereoscopic perception. Black o denotes no
 issues with stereoscopic perception.}
 \label{fig:mousevs3dg}
@@ -572,10 +574,10 @@ stereoscopic perception issues are above and to the right of $y = 1, x = 1$.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.5\textwidth]{figures/gesturebymouse2d.png}
+\includegraphics[width=0.7\textwidth]{figures/gesturebymouse2d.png}
 \caption{Relative completion times for 3D gesture and 2D gesture interfaces,
 normalized by 2D mouse completion times. \\
-Legend: Red x denotes severe problems with stereoscopic perception. Red +
+Legend: Red x denotes severe problems with stereoscopic perception. Magenta +
 denotes occasional problems with stereoscopic perception. Black o denotes no
 issues with stereoscopic perception.}
 \label{fig:gesturevs2dm}
@@ -591,7 +593,7 @@ the 2D mouse than the 2D gesture.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.8\textwidth]{figures/survey.pdf}
+\includegraphics[width=0.8\textwidth]{figures/survey.png}
 \caption{Interface preferences for post-experiment survey}
 \label{fig:survey}
 \end{figure}
@@ -600,12 +602,79 @@ Figure~\ref{fig:survey}.
 
 % ------------------------------------- DISCUSSION ----------------------------------------
 \section{Discussion}
-% FIXME
-\subsection{Other Factors}
-% Task type, learning curve, head tracking, jitter, experience with similar systems
+In general, no conclusive evidence was found to suggest Holograsp was significantly better than existing interfaces. The difference in mean
+completion times were not significant between the Holograsp interface and mouse interfaces (whether stereoscopic or 2D). However, some very
+interesting results appear when we take stereoscopic perception into account. When we examine participants who expressed no difficulty with
+stereoscopic perception, the Holograsp interface was far and away the best interface. In fact the four fastest mean completion times were
+performed with Holograsp. This supports our initial theory that aligned gesture and display space was beneficial to performance, since weak
+stereoscopic perception implies that lack of a true display volume. However, this analysis is not conclusive, especially since these conclusions
+were drawn post-hoc. It is possible, for instance, that participants wished to justify poor performance by drawing attention to stereoscopic issues.
+We also note that those who did not express issues with stereoscopy on average performed better than their counterparts for all interfaces, suggesting
+that spatial reasoning skills may be correlated with stereoscopic perception ability.
+
+In future studies, the most important goal would be to formally
+control for stereoscopic perception, since this seemed to be the missing factor in our hypotheses. The best way to do this
+would be to provide an objective test of stereoscopic ability before the timed task evaluation. We also
+would like to investigate the effects of learning as well as fatigue by holding longer experiments with
+more blocks per person. One other common factor that we did not examine was accuracy; for example in \cite{study1}
+both speed and accuracy were measured. However, analyzing speed and accuracy independently is difficult because
+there is a natural speed/accuracy tradeoff. It is hard to specify to participants an appropriate level of speed
+or accuracy desired. One method commonly used in HCI is Fitts' Law, which gives an explicit relationship between
+speed and accuracy. However, Fitts' Law was formulated for one-dimensional tasks and no generally accepted extension
+to higher dimensions has been found (but see \cite{mackenzie1992extending, monk1985fitts, murata2001extending} for some analyses of Fitts-like equations for higher
+dimensional interaction tasks). 
+
+It is interesting to note that no significant difference was found between the two mouse interfaces. In particular, we also
+considered whether the visual feedback and task might be biased for or against a specific interface combination. For example, the
+complexity of the scene would easily affect the required accuracy for a placement task; similarly the multiview 2D display interface
+encourages the conceptualization of the task as two separate placements. We found the results of \cite{study2} especially intriguing,
+since the addition of one new feedback element was enough to completely change results on the same task. This suggests that the details
+of visual feedback are as important, if not more important, than the actual input modality; it also means that applications must be
+designed very carefully, rather than using generic interface patterns. Applications also are reasonably far removed from the simple tasks
+of repeated placement, and thus we would like to compare Holograsp to traditional interfaces for actual 3D design tasks, rather than abstractions
+of these tasks. Even with task abstractions, we are interested in testing different tasks, such as rotation or docking, and compare Holograsp's
+performance with traditional interfaces.
+
+One very illuminating observation was the trajectories that participants took to move the target object.
+For mouse interfaces, it was fairly universal to position the shape on one plane, and then move it in only one dimension on the other
+plane to its final destination. For example, in the perspective view, they would overlap the image of the icosahedron and the sphere ($xy$
+alignment) and then adjust the $z$ coordinate according to depth cues. This was naturally encouraged by the decomposition of the mouse interface into two separate
+modes. Surprisingly, many participants adopted the same tactic for the gestural interfaces as well, especially those with weaker stereoscopic
+perception. This was perhaps the major difference between the trajectories of the two stereoscopic perception ability groups. 
+Whereas those with strong stereoscopic perception would take a direct path, those with
+weaker stereoscopic perception would overlap the images in $xy$ and then reach forward or backwards until the $z$ matched, just as with the mouse
+interfaces. Quantitative analyses of movement trajectories are rare but not absent from the literature (see \cite{integralityseparability}), however
+several works such as \cite{kruijff2006unconventional} visualize and qualitatively analyze trajectories. More formal quantitative trajectory analysis 
+would be a fruitful area of investigation for future 3D interfaces.
+
+It was evident from survey comments that technical details in the Holograsp interface also require significant
+polishing. Ten of the participants explicitly mentioned jitter as a problem with the gestural interface. We anticipate
+that using better algorithms and more accurate sensors, such as the Leap, will greatly enhance the usability of the
+gestural interface. Surprisingly, no users commented on stereoscopic inconsistencies caused by occlusions. We expected
+occlusion to be a significant downside to using a 3D monitor, since it was not possible to display a virtual object in front
+of a user's finger if the object was virtually located in front of the finger. This likely was a result of the sparse 3D
+scene and the simple manipulations involved in the study. We did have two users comment that calibration
+was noticeably affected when they moved their heads. This suggests that head and viewpoint tracking would greatly enhance the 
+realism of the virtual scene.
+
 % ------------------------------------- CONCLUSION ----------------------------------------
 \section{Conclusion}
-% FIXME
+In this paper, we presented the Holograsp system. Holograsp provides a natural way to interact with 3D data by colocating gestural interaction
+space with a stereoscopic display volume. Holograsp knows that, if you place your finger on a virtual object, then you are interacting with that object at
+that point. With this sytem, we allow natural interactions such as grabbing a virtual object as if it were a real one.
+
+We also evaluated the Holograsp system by comparing it to traditional input and output systems. We performed a user study to determine whether
+using Holograsp was faster than other interfaces in a 3D placement task. We separated this analysis into two axes: Holograsp's 3D stereoscopic
+versus traditional multiview 2D displays with orthographic projections, and the gestural in-air interface versus traditional mouse inputs. We
+found that, for users who could perceive the colocated stereoscopic display, Holograsp was significantly faster than any other interface combination;
+however many users who did experience difficulties with stereoscopic perception, mouse interfaces were noticeably faster than gestural interfaces.
+This investigation showed promising results as a pilot study, but more experimentation is needed to provide conclusive support for these interfaces.
+
+Despite the shortcomings of the current system, the possibilities presented by Holograsp are quite exciting. Holograsp provides a framework that
+can support a full 3D modelling application with intuitive manipulation input mappings. The computer systems depicted in the Iron Man films are
+an especially compelling example of where this could lead, showing possibilities for natural interaction with 3D CAD in the design of machinery
+and suits, and 3D data analysis in the manipulation of maps and graphs. We aim to allow the user to treat the virtual world as part of the real
+world, and Holograsp shows great promise in fulfilling this vision.
 
 \newpage
 \bstctlcite{bstctl:etal, bstctl:nodash, bstctl:simpurl}
@@ -613,4 +682,3 @@ Figure~\ref{fig:survey}.
 \bibliography{references}
 
 \end{document}
-
