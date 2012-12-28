@@ -55,7 +55,7 @@ virtual objects. A well-known intermediate between these two extremes is {\bf Au
 objects are placed within the real world. such as the CAD modelling systems in the Iron Man films. Another intermediate is
 {\bf Augmented Virtuality}, in which some real objects (usually the user's own body) are placed within a virtual world; a common
 example of augmented virtuality is green-screening, where a user interacts in front of a blank screen but is displayed in a
-different, virtual world. 
+different, virtual world.
 
 \subsection{Virtual Reality}
 There has been a significant amount of academic work published on virtual reality, especially
@@ -75,19 +75,19 @@ determining the location of the virtual object relative to the display \cite{zho
 many drawbacks such as latency, field of view, and improper tracking \cite{hoffman2008vergence} have resulted in a shift towards different display methods.
 Commercial and academic augmented reality systems now tend to use smartphones and tablets as "windows" into the augmented world. In this usage, the device's camera
 image is combined with virtual objects to be displayed on the screen, so that moving the "window" around presents different views of the real environment; such systems
-include DRIVE \cite{kim2011drive} and T(ether) \footnote{http://kiwi.media.mit.edu/tether/}. 
+include DRIVE \cite{kim2011drive} and T(ether) \footnote{http://kiwi.media.mit.edu/tether/}.
 
 Another aspect of augmented reality is tracking of a display's location so that the virtual object can be correctly overlaid onto the display.
-Currently, the dominant strategy for tracking is to use fiducial markers. Fiducial markers are two-dimensional shapes placed in the environment 
-that can be used to determine the relative position and orientation of a camera using computer vision techniques. Works using fiducial markers include 
-\cite{kato1999marker, artoolkit, dedual2011creating}. Newer methods based on fiducial tracking can use arbitrary 2D images or structures as markers \cite{ferrari2001markerless, simon2000markerless}. 
+Currently, the dominant strategy for tracking is to use fiducial markers. Fiducial markers are two-dimensional shapes placed in the environment
+that can be used to determine the relative position and orientation of a camera using computer vision techniques. Works using fiducial markers include
+\cite{kato1999marker, artoolkit, dedual2011creating}. Newer methods based on fiducial tracking can use arbitrary 2D images or structures as markers \cite{ferrari2001markerless, simon2000markerless}.
 Note that these marker-based techniques do not function
 well if the markers are blurred, partially occluded, out of view, inconsistently lighted, or at extreme angles; some of these challenges are investigated in \cite{fiala2010designing}. Other methods of tracking include inertial
 tracking, which use accelerometers and gyroscopes without an external frame of reference \cite{lang2002inertial}, and markerless tracking, which uses optical flow and
 stereo reconstruction techniques to determine 3D motion of the camera \cite{comport2006real}.
 
 \subsection{Colocation of Hands and Virtual Manipulation Controllers}
-Although several 3D manipulation systems have direct mappings between hand position and a virtual hand, such as \cite{poupyrev1996go}, 
+Although several 3D manipulation systems have direct mappings between hand position and a virtual hand, such as \cite{poupyrev1996go},
 comparatively few aim to make the perceived 3D position of the hand proxy be coincident with the user's natural perception of their
 hand location. The relevant perceptual phenomenon, known as {\bf proprioception}, is a person's automatic knowledge of the position and orientation of their
 limbs relative to themselves. The use of proprioception in 3D interfaces was heavily investigated by Mine in \cite{mine1997exploiting}, which found that
@@ -102,12 +102,12 @@ interactive space with colocated virtual objects.
 \subsection{Evaluation of 3D User Interfaces}
 Several studies have investigated the effectiveness of novel, high-DOF input devices by directly comparing them to traditional devices, especially the mouse.
 Evaluation methods generally involve performing fundamental 3D tasks, especially selection, placement, and rotation. Input methods are compared based on their
-speed and accuracy. The SpaceNavigator, a commercially available high DOF devices, was found to be inferior to the mouse for placement tasks in 
-\cite{mattheiss2011navigating}. B{\'e}rard et al also found the mouse to be more effective than several high-DOF devices for placement tasks 
+speed and accuracy. The SpaceNavigator, a commercially available high DOF devices, was found to be inferior to the mouse for placement tasks in
+\cite{mattheiss2011navigating}. B{\'e}rard et al also found the mouse to be more effective than several high-DOF devices for placement tasks
 in \cite{study1}.  However, a later study by the same group found that enhanced visual feedback, in the form of pop-up depth views, greatly enhanced the effectiveness
 of the high-DOF device, and was found to perform better than the mouse \cite{study2}. The
 evaluation of the Holodesk system also involved a user study, in which they compared performance on a selection task with varying depth cues. They found that aligned
-stereoscopic display systems were better than aligned non-stereoscopic systems with appropriate occlusion cues, and unaligned displays were slowest \cite{holodesk}. 
+stereoscopic display systems were better than aligned non-stereoscopic systems with appropriate occlusion cues, and unaligned displays were slowest \cite{holodesk}.
 We borrow our primary experimental procedure from \cite{study1, study2}.
 % ------------------------------------- IMPLEMENTATION --------------------------------------
 \section{Holograsp Implementation}
@@ -119,7 +119,7 @@ is the timed 3D manipulation task harness used in the experiments section. The i
 experiments used DirectX for graphics rendering, the Nvidia API for configuring the 3D monitor, and the Intel Perceptual
 Computing SDK for input.
 \subsubsection{Holograsp Engine}$ $\\
-The core engine uses the SDL library \footnote{http://www.libsdl.org/} for fundamental windowing and event handling. 
+The core engine uses the SDL library \footnote{http://www.libsdl.org/} for fundamental windowing and event handling.
 The engine performs the following tasks:
 \begin{itemize}
 \item Check for and handle mouse, keyboard, and application events.
@@ -175,21 +175,21 @@ more advanced rendering capabilities.
 
 \subsection{Gestural Interface}
 \subsubsection{Gestural Input Hardware and SDKs} $ $\\
-Our input interface is centered around the Creative Interactive Gesture Camera and the Intel Perceptual Computing SDK 
+Our input interface is centered around the Creative Interactive Gesture Camera and the Intel Perceptual Computing SDK
 \footnote{http://software.intel.com/en-us/vcsource/tools/perceptual-computing-sdk}.
-The CIGcam includes a microphone, a standard RGB camera, and a depth camera. Holograsp made heavy use of the depth camera functionality. 
+The CIGcam includes a microphone, a standard RGB camera, and a depth camera. Holograsp made heavy use of the depth camera functionality.
 The depth camera uses infrared time-of-flight methods to construct a depth image of resolution $320 \times 240$ pixels at a peak frame
 rate of 30 frames per second. The RGB camera was used to construct point-cloud visualizations but was not used for gesture recognition;
 the RGB camera provides resolutions of up to $1280 \times 720$ pixels at 30 frames per second. The microphone was not used in Holograsp.
 
 The Intel Perceptual Computing SDK provided two capabilities that were heavily used in Holograsp. The more fundamental capability was
 to expose the depth and camera streams so that Holograsp could extract and process individual data frames. The SDK also provided
-hand and finger pose recognition, providing the client application with precise locations of hands, palms, and fingers. 
+hand and finger pose recognition, providing the client application with precise locations of hands, palms, and fingers.
 
 \subsubsection{Alternate Gestural Input Devices}$ $\\
 Many developments in 3D sensing hardware have been announced recently, starting with Microsoft's Kinect sensor. These sensing
 devices are geared towards consumers and are inexpensive compared to earlier depth cameras, which were only used for specialized applications.
-The CIGcam and its SDK were publicly released in October 2012; before acquiring a CIGcam, Holograsp used the Microsoft Kinect for Windows SDK 
+The CIGcam and its SDK were publicly released in October 2012; before acquiring a CIGcam, Holograsp used the Microsoft Kinect for Windows SDK
 \footnote{http://www.microsoft.com/en-us/kinectforwindows/} for input. In contrast to the CIGcam, the Kinect uses structured light
 to obtain its depth images. The characteristics of each device are compared in Table~\ref{tab:comparison}.
 
@@ -224,7 +224,7 @@ parsing to extract higher level information from it. This includes translating f
 points of interest from a depth image. This two layer system facilitates the substitution of alternate input devices separately from
 gesture recognition algorithms.
 
-Input device SDKs usually consists of a depth image at minimum. A depth image is a grid of pixels, where each 
+Input device SDKs usually consists of a depth image at minimum. A depth image is a grid of pixels, where each
 pixel contains the distance from the camera to the nearest object along the ray through that pixel. Many SDKs
 also provide a color image from a camera, as well as positions of hands, fingers, heads, or other body parts.
 Layer-1 input processing classes tended to be simple wrappers for calls to the appropriate SDK, using a unified
@@ -241,19 +241,19 @@ on the index finger and the thumb; the point of interest (used for a cursor or a
 of the thumb and the tip of the index finger, and different states were triggered based on whether the two fingers were pinched
 together or were separate. This was accomplished via a simple finite state machine illustrated in Figure~\ref{fig:fsm}. We also
 applied hysteresis to the state transitions to account for tracking noise; 5 consecutive frames indicating the same state transition
-were necessary before a state transition occured. 
+were necessary before a state transition occured.
 
 The second Layer-2 class has a simpler and tends to be more robust. The mechanism simply selects the closest blob of pixels to the monitor
 as the point of interest. For speed and simplicity, the default algorithm looks at neighborhoods of nine pixels to determine the closest blob of pixels,
-and takes the average of the corresponding points in space to be the point of interest. This mechanism also applies some simple filtering to 
-smooth each coordinate of the resulting point, since this input method was subject to varying amounts of jitter. Several simple 
+and takes the average of the corresponding points in space to be the point of interest. This mechanism also applies some simple filtering to
+smooth each coordinate of the resulting point, since this input method was subject to varying amounts of jitter. Several simple
 smoothing methods can be used; we found a double moving average filter with a window size of 5 to be appropriate for the data rates of
 our input devices. Many filters are included in Holograsp's implementation, mostly adapted from \cite{brown2004smoothing}. This class was
 used in the experiment application because of its robustness.
 
 \subsection{Calibration of Coordinate Systems}
 As Holograsp involves a spatially accurate input and output systems, there are two distinct calibration steps needed. The calibration
-of camera coordinates with world coordinates is a well-understood problem in computer vision and augmented reality. 
+of camera coordinates with world coordinates is a well-understood problem in computer vision and augmented reality.
 However, it is much harder to calibrate the stereoscopic display space given the limitations of the 3D Vision Automatic
 system, and more approximate methods must be used.
 \subsubsection{Camera to World Calibration}$ $\\
@@ -269,9 +269,9 @@ and orientation in the form of a matrix $M_{RT}$ mapping homogeneous coordinates
 \end{figure}
 
 Camera calibration using fiducial markers is very well understood and is a fundamental part of most augmented reality applications. Fiducial
-markers, such as the one depicted in Figure~\ref{fig:hiro}, are generally composed of a thick black border and an inner area 
+markers, such as the one depicted in Figure~\ref{fig:hiro}, are generally composed of a thick black border and an inner area
 containing distinguishing features. The standard algorithm first thresholds the camera frame and looks for regions that are composed of four straight lines.
-This yields the equations of two perpendicular line segments, as projected onto the camera plane. Using the perspective projection equation 
+This yields the equations of two perpendicular line segments, as projected onto the camera plane. Using the perspective projection equation
 for the camera, which depends only on the camera's field of view and aspect ratio, the algorithm can compute the plane containing two
 parallel line segments. This plane determines the camera's orientation with respect to the marker. The translation of the camera can then be
 easily obtained by substituting the coordinates of the fiducial marker corners into the projection equation. This algorithm is described in
@@ -288,7 +288,7 @@ $$M_{d} = \left(
 \begin{array}{cccc}
 a & 0 & a_z & a_t \\
 0 & b & b_z & b_t \\
-0 & 0 & c_z & c_t \\ 
+0 & 0 & c_z & c_t \\
 0 & 0 &   0 &   1
 \end{array}\right)$$
 
@@ -298,7 +298,7 @@ This matrix is considerably simpler than a full rotation-translation matrix. Thi
 Camera intrinsic, perspective, and transformation matrices are all linear, as is the stereoscopic approximation used in Nvidia 3D Vision
 Automatic. in particular, the $c$ depth convergence parameter is simply an artificial depth offset. We therefore felt justified in choosing
 a linear transformation to represent the display to world calibration matrix.
-\item Nvidia 3D Vision Automatic does not allow for head roll; this is a fairly safe operating assumption since people generally do 
+\item Nvidia 3D Vision Automatic does not allow for head roll; this is a fairly safe operating assumption since people generally do
 not tilt their heads to the side significantly when working with visual displays. Thus, we assume that the $x$ and $y$ coordinates are
 independent. This makes the process of obtaining measurements much simpler, since we can indepently calibrate the $x$ and $y$ dimensions.
 \item We also assume that objects at a constant distance from the monitor will have the same $z$ coordinate, regardless
@@ -316,7 +316,7 @@ with screen coordinates $(0,0,z)$. The apparent location of the model in world c
 $$a_zz + a_t = x_w$$
 $$b_zz + b_t = y_w$$
 $$c_zz + c_t = z_w$$
-We then performed a linear regression on each coordinate to obtain $a_z, a_t, b_z, b_t, c_z, c_t$. 
+We then performed a linear regression on each coordinate to obtain $a_z, a_t, b_z, b_t, c_z, c_t$.
 Then we display the model at ten $z$ depths at the corners of the monitor, with coordinates $(w/2, h/2, z)$ where $w,h$ are the horizontal and vertical
 resolution of the monitor, respectively.
 $$\frac{aw}{2} + a_zz + a_t = x_w$$
@@ -337,22 +337,22 @@ markers or more sophisticated computer vision techniques to recognize heads in d
 \section{Evaluation Methodology}
 Many previous works, such as \cite{study1,mattheiss2011navigating,study2}, have consistently found the
 mouse to be faster and more precise for 3D manipulation
-tasks than devices with higher degrees of freedom, including in-air devices. 
+tasks than devices with higher degrees of freedom, including in-air devices.
 The goal of this experiment was to determine if the poor performance of high DOF devices could
 be a result of cognitive separation between the interface and the task to be performed.
 \subsection{3D Manipulation Task}
 Bowman et. al describe several fundamental tasks in 3D interfaces, primarily selection,
 manipulation, navigation, system control, and symbolic input \cite{3dui}. The most fundamental
 for many domains are selection and manipulation. For example, in CAD applications or 3D data
-analysis, the user often wants to specify a particular point on a virtual object, or a 
+analysis, the user often wants to specify a particular point on a virtual object, or a
 destination for a new mesh to be created. Traditional methods of selecting a point on an
-object generally use "picking", which involves casting a ray from the viewpoint through the 
+object generally use "picking", which involves casting a ray from the viewpoint through the
 cursor and selecting the nearest point on the object\cite{study1}. However, with a 2 DOF
-interface it is extremely difficult to specify an arbitrary point in space; indeed in existing 
+interface it is extremely difficult to specify an arbitrary point in space; indeed in existing
 CAD applications users rely on multiple orthographic projections to decompose coordinates into
 several 2D placements \cite{study2}.
 
-Because selecting a point in 3D space is fundamental to many CAD operations, we elected to 
+Because selecting a point in 3D space is fundamental to many CAD operations, we elected to
 evaluate the performance of our novel interface on a placement task, based on the experiments
 of \cite{study1, study2}. The placement task involves two objects situated in a 3D space; the
 goal of the user is to select a target object and translate it to the position of the
@@ -366,8 +366,8 @@ that involve a rotation as well as a translation (known as "docking") \cite{masl
 In our experiment we examined two aspects of 3D interaction interfaces: output interfaces and
 input interfaces. Our primary interest in investigating output interfaces was whether natural depth cues,
 specifically stereoscopy, were better suited to 3D tasks than artificial ones, such as the
-standard orthographic projections. In terms of input interfaces, we compare the traditional 
-mouse interface with a natural user interface that used gesture. 
+standard orthographic projections. In terms of input interfaces, we compare the traditional
+mouse interface with a natural user interface that used gesture.
 
 Our goals in comparing both output and input interfaces were based on the belief that the
 efficacy of input devices were closely tied to the feedback provided to the user, i.e. the
@@ -401,7 +401,7 @@ We experimented with two gestural interfaces. The first involved the thumb and i
 follow the user's hand when the thumb and index finger were extended and the remaining fingers were curled. The cursor
 location was between the thumb and index finger; selection and release were accomplished by pinching the two fingers
 together and bringing them apart, respectively. This interface was designed such that moving an object simply felt like
-picking it up and dropping it. This interface used the hand pose tracking in the Intel Perceptual Computing SDK. 
+picking it up and dropping it. This interface used the hand pose tracking in the Intel Perceptual Computing SDK.
 However, we found that pose recognition
 was not robust under arbitrary orientations of the hand with respect to the depth camera. This interfered significantly with
 the placement task, since the system would detect false releases fairly often. The closed-source nature of the SDK meant that
@@ -411,12 +411,12 @@ deselection. In this simpler interface, the depth camera takes the blob of point
 The spacebar was the analogue of the left mouse button in the mouse interface, so that the user would hold down the spacebar
 to select and move the virtual object, and release the spacebar to release the object. Users would use an extended fingertip as
 their pointing tool. This method suffered from occasional problems at extremes of the interaction space (where other parts of the hand
-might be closer to the screen than the fingertip), but these did not severely affect task performance. 
+might be closer to the screen than the fingertip), but these did not severely affect task performance.
 
 \subsubsection{Output Interfaces}$ $\\
 Both output interfaces incorporated similar feedback elements. Three geometric elements
 appeared on the screen: a red icosahedron, representing the object to be manipulated, a
-cyan sphere, representing the destination for the icosahedron, and a green tetrahedron, 
+cyan sphere, representing the destination for the icosahedron, and a green tetrahedron,
 denoting the cursor. The manipulable icosahedron changed color to blue when the cursor
 overlapped it to indicate that it was selectable. When it was selected and was moving
 with the cursor, the icosahedron turned green. Similarly, the target sphere turned dark
@@ -450,14 +450,14 @@ video games to convey depth information.
 % ------------------------------------- USER STUDY ----------------------------------------
 \section{User Study}
 \subsection{Procedure}
-The user study was centered around the 3D placement task. Volunteers were solicited by 
+The user study was centered around the 3D placement task. Volunteers were solicited by
 through word of mouth and departmental Facebook groups. We collected data from 14 participants,
 consisting of 13 males and one female. One male participant was a graduate student in computer
 science; 10 participants were undergraduates in computer science and the remaining participants
 concentrated in East Asian Studies, Mathematics, and Astrophysics.
 
 Before the task participants were asked to fill out a survey describing their experience with
-gestural systems, stereoscopic 3D, CAD and 3D modelling, and video gaming. 
+gestural systems, stereoscopic 3D, CAD and 3D modelling, and video gaming.
 
 The participants were then introduced to the system to familiarize themselves with the placement task, the pop-out
 stereoscopy and the gesture system. An experimenter was with the participant at all times during
@@ -472,14 +472,14 @@ spaces and the calibration procedure. They once again had the opportunity to fin
 
 After familiarizing themselves with the interface, the participants then performed the full round of timing experiments. These
 experiments used a within-subjects design, with independent variables of output modality (2D vs. 3D) and input modality (gesture vs. mouse).
-For each of the four interface combinations (2D-Mouse, 2D-Gesture, 3D-Mouse, and 3D-Gesture), the participant completed a 
+For each of the four interface combinations (2D-Mouse, 2D-Gesture, 3D-Mouse, and 3D-Gesture), the participant completed a
 run of ten consecutive placement tasks. Participants performed two blocks of these 40 tasks, for a total of $(14)(2)(40) = 1120$
-placement tasks. Each run of tasks was preceded by one untimed task to give the user time to adapt to the interface, and 
+placement tasks. Each run of tasks was preceded by one untimed task to give the user time to adapt to the interface, and
 in the 3D-Gesture case, perform calibration.
 
 In each task, the locations of the target and destination objects were selected at random in the interaction space. The
 ordering of the interfaces within a run was also randomized; the one exception was that the last interface in a block
-would not be selected as the first interface in the subsequent block. 
+would not be selected as the first interface in the subsequent block.
 
 The quantitative data collected was the time in milliseconds for every selection and release event. We did not formally
 collect data on movement trajectories, but the experimenter did collect qualitative observations on general trends in
@@ -497,22 +497,107 @@ the interface choices best fitting a certain criterion, as well as a short justi
 \end{itemize}
 % Error, size, jitter, randomization, trajectories
 \subsection{Results}
-Figure~\ref{fig:aggregatedistr} shows the distribution of times and mean times per task for each interface, considering time until first selection, time from first selection until
-task completion, and total task completion time. These plots show that the gestural interfaces had more variation in completion times, especially in high completion-time
-outliers. Furthermore, an ANOVA on the results showed a strong effect of interface on completion time ($F_{3,840}=27.546, p < 0.0001$). 
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{figures/aggmean.pdf}
+\caption{Mean placement times for each interface in a. time until first
+selection, b. time from first selection until task completion, and c. total task
+completion time. All data is shown with 95\% confidence intervals.}
+\label{fig:aggregate}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{figures/distribution.png}
+\caption{Distribution of total placement times for each interface. Whiskers are
+1.5 IQR in length. Note that three outliers for the 2D gesture interface are not
+shown}
+\label{fig:distr}
+\end{figure}
+Figure~\ref{fig:aggregate} shows the mean times per task for each interface, considering time until first selection, time from first selection until
+task completion, and total task completion time. We also show the distribution
+of mean placement times in Figure~\ref{fig:distr}. These plots show that the gestural interfaces had more variation in completion times, especially in high completion-time
+outliers. Furthermore, a repeated measures ANOVA on the results showed a strong effect of
+interface on completion time ($F_{3,39}=7.19, p < 0.001$).
 However, no general conclusions can be drawn between the mouse interfaces or the 3D gestural interface; post-hoc analysis showed no significant differences
-in mouse interface times ($p > 0.01$) or between the mouse and either mouse interface ($p > 0.01$)
+in mouse interface times ($p > 0.05$) or between the 3D-gesture and either mouse
+interface ($p > 0.05$).
 
-Because of the lack of conclusive results, we analyzed post-hoc the results for each individual participant. This data revealed several more interesting observations.
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{figures/mean.pdf}
+\caption{Mean placement times for each interface, separated by whether
+stereoscopic perception problems were expressed. 95\% confidence intervals are
+shown.}
+\label{fig:sepmean}
+\end{figure}
+Because of the lack of conclusive results, we further analyzed post-hoc the results for each individual participant. This data revealed several more interesting observations.
 The most significant observation was that most people were either significantly faster with both mouse interfaces, or significantly faster with the 3D-Gesture interface.
-This contrasts with the aggregated data, which would suggest that each participant would have similar completion times between the mouse interfaces and the 3D-Gesture
-interface. Inspection of survey results revealed that the critical distinction whether participants had expressed difficulty with perceiving
-the pop-out stereoscopic effects. Figure~\ref{fig:sepmean} compares the mean time to task completion for each interface and each stereoscopic perception group.
+This contrasts with the aggregated data, which would suggest that each participant would have similar completion times between the mouse interfaces and the 3D-gesture
+interface. Inspection of survey results revealed that the critical distinction
+was whether participants had expressed difficulty with perceiving
+the pop-out stereoscopic effects. Figure~\ref{fig:sepmean} compares the mean
+time to task completion for each interface and each stereoscopic perception
+group. Pairwise t-tests show significant differences between performance between
+the groups for the 3D gesture interface ($p < 0.01$) but not for any other
+interfaces ($p > 0.05$).
 
-Because of the large differences in task performance across individuals, we also examined the performance of individuals relative to their own completion times.
+Because of the large differences in task performance between individuals, we
+also examined participant performance relative to their own completion times.
+Figure~\ref{fig:mousevs3dg} shows a scatter plot with one point for each
+participant. The horizontal component of each point is the participant's mean 3D
+mouse time divided by their mean 3D gesture time; likewise the vertical
+component of each plot is the participant's mean 2D mouse time divided by their
+mean 3D gesture time.  A similar plot is shown in Figure~\ref{fig:gesturevs2dm},
+which compares mean completion times of the two gestural interfaces normalized
+by the 2D mouse mean completion time.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{figures/mousebygesture3d.png}
+\caption{Relative completion times for 3D mouse and 2D mouse interfaces,
+normalized by 3D gesture completion times. \\
+Legend: Red x denotes severe problems with stereoscopic perception. Red +
+denotes occasional problems with stereoscopic perception. Black o denotes no
+issues with stereoscopic perception.}
+\label{fig:mousevs3dg}
+\end{figure}
 
-%TODO: Make Figures, t-test or ANOVA, graphs for distribution and mean
+From Figure~\ref{fig:mousevs3dg}, we can observe that for most participants
+the two mouse interfaces were fairly similar in performance, since most points
+are fairly close to the $y = x$ line in blue. The plot also shows that the
+participants with poor stereoscopic perception tended to be faster with the
+mouse interfaces than the gesture interface, since their data points tend to be below
+and to the left of the $y = 1, x = 1$ lines. Similarly, participants without
+stereoscopic perception issues are above and to the right of $y = 1, x = 1$.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{figures/gesturebymouse2d.png}
+\caption{Relative completion times for 3D gesture and 2D gesture interfaces,
+normalized by 2D mouse completion times. \\
+Legend: Red x denotes severe problems with stereoscopic perception. Red +
+denotes occasional problems with stereoscopic perception. Black o denotes no
+issues with stereoscopic perception.}
+\label{fig:gesturevs2dm}
+\end{figure}
+From Figure~\ref{fig:gesturevs2dm}, we can see that almost all participants were
+faster with the 3D gestural interface than the 2D gestural interface (most
+points are above $y = x$). Likewise, almost all participants are better with the
+2D mouse interface than the 2D gesture interface (most points are above $y=1$).
+Finally, we note once again that the participants with good stereoscopic
+perception ability tend to have faster 3D gesture times than 2D mouse times (to
+the left of $x=1$) and those with poor stereoscopic perception were faster with
+the 2D mouse than the 2D gesture.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/survey.pdf}
+\caption{Interface preferences for post-experiment survey}
+\label{fig:survey}
+\end{figure}
+The results of the survey for the interface preference questions are shown in
+Figure~\ref{fig:survey}.
+
 % ------------------------------------- DISCUSSION ----------------------------------------
 \section{Discussion}
 % FIXME
