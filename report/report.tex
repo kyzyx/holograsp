@@ -33,13 +33,37 @@ feedback and natural gestural interface was by far the most effective and intuit
 \newpage
 
 \section{Introduction}
+We live in a world of three spatial dimensions, which gives us an intuitive grasp on how to interact with
+physical objects. If we see a book on a bookshelf, we can reach out and grab the correct book with
+absolute confidence in where our hand is going. However, this physical intuition is absent in current 3D interactive
+systems. In modern 3D modelling and CAD tools, we are forced to view naturally 3D objects on 2D monitors, and have to
+select, move, and rotate objects and our viewpoint using a keyboard and 2 DOF mouse. This often results in unintuitive and
+tedious workflows; in a 3D virtual world, to move an object we generally have to unnaturally decompose the movement of the
+object into several orthogonal directions, examining the appropriate orthogonal projections until the placement is correct.
+What if we could achieve this placement task as fluidly and naturally as if we were manipulating a real object? This
+physical intuitiveness is the motivation behind the development of the Holograsp system presented in this paper.
 
-In this paper we make two main contributions:
+Several existing systems have already attempted to make use of physical intuition by developing high DOF input 
+devices to interact with 3D information \cite{manders2010gesture, mattheiss2011navigating, mine1997moving}.
+However, numerous studies have found that these devices are inferior to the mouse in terms of speed and accuracy \cite{mattheiss2011navigating, study1}.
+We propose that the major problem with most of these systems is that half of the nature of the intuition is missing. While the input device is certainly
+natural, the visual feedback is rarely aligned with the input device. Instead, the natural input device is used to manipulate an onscreen object, far
+removed from being able to intuitively reach out to the object. In our bookshelf example, we must manipulate the book at the end of a long stick, instead of
+instinctively grabbing it. Our hypothesis is that, if we colocate the gestural interaction space with a 3D display space with appropriate depth cues, we can regain
+the full intuitiveness of interacting with physical objects. Imagine that your bookshelf on the other side of the room was displayed as if it were right
+in front of you; you can once again reach out and "grab" your desired book intuitively, as if it was real.
+
+In this paper, we make two main contributions:
 \begin{itemize}
 \item We present Holograsp, a 3D manipulation system, to show the feasibility of colocating display and gestural spaces.
 \item We show the benefits of such systems through a user study involving 3D manipulation tasks, in which we compare the
 performance of Holograsp with traditional interfaces.
 \end{itemize}
+
+To motivate these contributions, we first inspect related works in 3D user interfaces and mixed reality. We then show how Holograsp fits
+into the existing work by describing the design of Holograsp, including the software architecture, input and output device considerations,
+and the alignment process. We then present our experimental methodology to justify our evaluation methods. Finally, we discuss the results
+of our experiments and provide some possibilities for future research. 
 
 % ------------------------------------- RELATED WORK ----------------------------------------
 \section{Background and Related Work}
@@ -112,7 +136,12 @@ We borrow our primary experimental procedure from \cite{study1, study2}.
 % ------------------------------------- IMPLEMENTATION --------------------------------------
 \section{The Holograsp System}
 \subsection{Overview}
-%TODO
+Holograsp is a software system that provides the capability of gesture recognition that is aligned with pop-out stereoscopic 3D rendering. 
+It does this by converting coordinates of a 3D input device into real-world coordinates, and then converting the coordinates of the
+apparent positions of the objects projected into the real world by the stereoscopic display into the same real-world coordinates. 
+Holograsp provides several different methods of stereoscopic rendering, as well as
+a generic interface for depth input devices. These components allow a variety of 3D interactive applications to be built on top of Holograsp;
+for the purposes of this paper we implemented an application that timed the performance of a 3D translation task.
 \subsection{Software Architecture}
 Holograsp uses a heavily abstracted engine to facilitate substitution of input and output devices, client applications, and SDKs.
 The architecture of the engine invites the construction of many client applications; Holograsp provides the alignment of the
@@ -184,8 +213,8 @@ The depth camera uses infrared time-of-flight methods to construct a depth image
 rate of 30 frames per second. The RGB camera was used to construct point-cloud visualizations but was not used for gesture recognition;
 the RGB camera provides resolutions of up to $1280 \times 720$ pixels at 30 frames per second. The microphone was not used in Holograsp.
 
-The Intel Perceptual Computing SDK provided two capabilities that were heavily used in Holograsp. The more fundamental capability was
-to expose the depth and camera streams so that Holograsp could extract and process individual data frames. The SDK also provided
+The Intel Perceptual Computing SDK provided two capabilities that were heavily used in Holograsp. It exposed the basic depth and 
+camera streams so that Holograsp could extract and process individual data frames. The SDK also provided
 hand and finger pose recognition, providing the client application with precise locations of hands, palms, and fingers.
 
 \subsubsection{Alternate Gestural Input Devices}$ $\\
@@ -234,7 +263,7 @@ interface.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{figures/fsm.png}
+\includegraphics[width=0.7\textwidth]{figures/fsm.png}
 \caption{Finite State Machine for Hand Selection States}
 \label{fig:fsm}
 \end{figure}
@@ -488,7 +517,7 @@ collect data on movement trajectories, but the experimenter did collect qualitat
 trajectories. After completion of the second block, participants were asked to fill out a survey involving several questions
 about their perceptions of the interfaces. We asked participants to compare input modalities and output modalities, as well as
 make general observations about the efficacy of the system. We also asked a series of short questions asking participants for
-the interface choices best fitting a certain criterion, as well as a short justification. These criterion were:
+the interface choices best fitting a certain criterion, as well as a short justification. These criteria were:
 \begin{itemize}
 \item Their personal favorite
 \item The easiest to use for completing the task
@@ -504,7 +533,7 @@ the interface choices best fitting a certain criterion, as well as a short justi
 \includegraphics[width=0.7\textwidth]{figures/aggmean.png}
 \caption{Mean placement times for each interface in a. time until first
 selection, b. time from first selection until task completion, and c. total task
-completion time. All data is shown with 95\% confidence intervals.}
+completion time. All data includes 95\% confidence intervals.}
 \label{fig:aggregate}
 \end{figure}
 \begin{figure}
@@ -528,8 +557,7 @@ was worse than the other interfaces ($p < 0.01$).
 \centering
 \includegraphics[width=0.7\textwidth]{figures/mean.png}
 \caption{Mean placement times for each interface, separated by whether
-stereoscopic perception problems were expressed. 95\% confidence intervals are
-shown.}
+stereoscopic perception problems were expressed. This data is presented with 95\% confidence intervals.}
 \label{fig:sepmean}
 \end{figure}
 Because of the lack of conclusive results, we further analyzed post-hoc the results for each individual participant. This data revealed several more interesting observations.
@@ -549,7 +577,7 @@ Figure~\ref{fig:mousevs3dg} shows a scatter plot with one point for each
 participant. The horizontal component of each point is the participant's mean 3D
 mouse time divided by their mean 3D gesture time; likewise the vertical
 component of each plot is the participant's mean 2D mouse time divided by their
-mean 3D gesture time.  A similar plot is shown in Figure~\ref{fig:gesturevs2dm},
+mean 3D gesture time. A similar plot is shown in Figure~\ref{fig:gesturevs2dm},
 which compares mean completion times of the two gestural interfaces normalized
 by the 2D mouse mean completion time.
 
@@ -597,7 +625,7 @@ the 2D mouse than the 2D gesture.
 \caption{Interface preferences for post-experiment survey}
 \label{fig:survey}
 \end{figure}
-The results of the survey for the interface preference questions are shown in
+We show the results of the survey for the interface preference questions in
 Figure~\ref{fig:survey}.
 
 % ------------------------------------- DISCUSSION ----------------------------------------
