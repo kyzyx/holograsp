@@ -10,7 +10,8 @@
 \date{}
 \author{Edward Zhang}
 \maketitle
-\doublespacing
+%\doublespacing
+\onehalfspace
 \thispagestyle{empty}
 
 \begin{abstract}
@@ -41,14 +42,73 @@ performance of Holograsp with traditional interfaces.
 \end{itemize}
 
 % ------------------------------------- RELATED WORK ----------------------------------------
-\section{Related Work}
-% FIXME
-\subsection{Virtual and Augmented Reality}
-\subsection{3D User Interfaces}
-% In air interfaces, selection/manipulation, stereoscopy, reach in systems, virtual reality, augmented reality
-% ------------------------------------- OVERVIEW --------------------------------------------
-\section{Holograsp Overview}
-% FIXME
+\section{Background and Related Work}
+\subsection{Mixed Reality}
+Effective usage of computer systems depends on how users conceptualize their interactions with the system.
+Perhaps the most obvious method is to present computer data in a physically motivated setting, translating
+human intuition about the physical world into natural interactions with the system. Because of the nature of 3D data,
+it is especially appropriate to conceptualize 3D interactions in physical terms. Milgram and Kishino present
+the virtuality continuum of {\bf Mixed Reality} environments, describing the degree of overlap between the
+real world environment and the system's virtual environment, in \cite{milgram1994taxonomy}. Real environments, namely
+the real world, contain only real objects, and {\bf Virtual Reality} environments, such as 3D worlds in video games, contain only
+virtual objects. A well-known intermediate between these two extremes is {\bf Augmented Reality}, in which virtual
+objects are placed within the real world. such as the CAD modelling systems in the Iron Man films. Another intermediate is
+{\bf Augmented Virtuality}, in which some real objects (usually the user's own body) are placed within a virtual world; a common
+example of augmented virtuality is green-screening, where a user interacts in front of a blank screen but is displayed in a
+different, virtual world. 
+
+\subsection{Virtual Reality}
+There has been a significant amount of academic work published on virtual reality, especially
+in {\bf immersive virtual reality}, where the user perceives themselves to be in the virtual environment. Immersive
+virtual reality systems generally use Head-Mounted Displays (HMDs) for complete visual immersion, and have been studied
+as far back as 1968, when Sutherland introduced the first HMD \cite{sutherland1968head}. Although immersive virtual reality
+systems provide perceptual realism, interaction with such systems is difficult because users cannot physically see any input devices.
+Some systems have the human body as the main interface controller, such as \cite{laviola1999whole, laviola1999flex}. Other systems render
+virtual analogues of physical input devices, such as the virtual tablet in \cite{poupyrev1998virtual} or the cubes used in \cite{mine1997exploiting}.
+Another common strategy is to use multimodal input, especially the combination of physical and voice systems, as in \cite{bolt1980put}.
+In all of these cases, the visual feedback is critical for effective usage of these devices.
+
+\subsection{Augmented Reality}
+In contrast to virtual reality, {\bf Augmented Reality} involves placing virtual objects within the real world. The main challenge
+in augmented reality is placing virtual objects into the real world. This involves two components: displaying the object, and
+determining the location of the virtual object relative to the display \cite{zhou2008trends}. Although early systems focused on head mounted displays,
+many drawbacks such as latency, field of view, and improper tracking \cite{hoffman2008vergence} have resulted in a shift towards different display methods.
+Commercial and academic augmented reality systems now tend to use smartphones and tablets as "windows" into the augmented world. In this usage, the device's camera
+image is combined with virtual objects to be displayed on the screen, so that moving the "window" around presents different views of the real environment; such systems
+include DRIVE \cite{kim2011drive} and T(ether) \footnote{http://kiwi.media.mit.edu/tether/}. 
+
+Another aspect of augmented reality is tracking of a display's location so that the virtual object can be correctly overlaid onto the display.
+Currently, the dominant strategy for tracking is to use fiducial markers. Fiducial markers are two-dimensional shapes placed in the environment 
+that can be used to determine the relative position and orientation of a camera using computer vision techniques. Works using fiducial markers include 
+\cite{kato1999marker, artoolkit, dedual2011creating}. Newer methods based on fiducial tracking can use arbitrary 2D images or structures as markers \cite{ferrari2001markerless, simon2000markerless}. 
+Note that these marker-based techniques do not function
+well if the markers are blurred, partially occluded, out of view, inconsistently lighted, or at extreme angles; some of these challenges are investigated in \cite{fiala2010designing}. Other methods of tracking include inertial
+tracking, which use accelerometers and gyroscopes without an external frame of reference \cite{lang2002inertial}, and markerless tracking, which uses optical flow and
+stereo reconstruction techniques to determine 3D motion of the camera \cite{comport2006real}.
+
+\subsection{Colocation of Hands and Virtual Manipulation Controllers}
+Although several 3D manipulation systems have direct mappings between hand position and a virtual hand, such as \cite{poupyrev1996go}, 
+comparatively few aim to make the perceived 3D position of the hand proxy be coincident with the user's natural perception of their
+hand location. The relevant perceptual phenomenon, known as {\bf proprioception}, is a person's automatic knowledge of the position and orientation of their
+limbs relative to themselves. The use of proprioception in 3D interfaces was heavily investigated by Mine in \cite{mine1997exploiting}, which found that
+in an immersive virtual environment, manipulating objects colocated with the users hand was more efficient than manipulation at an offset. Several systems,
+such as \cite{mulder2002personal, prachyabrued2011dropping}, use a tabletop with a mirrored display above it; in these systems the interaction space underneath
+the display is directly mapped to what the user sees in the display. The preceding systems are strictly virtual reality systems, since the actual environment displayed
+is still completely synthesized. Recent work by Microsoft Research, such as the Holodesk \cite{holodesk}, has instead used half-silvered mirrors to create an augmented reality
+interaction space, where the user can see their hands interacting with colocated virtual objects. Holodesk focused on realistic physical interactions within the space,
+representing real objects as point clouds that could knock over or hold up other objects. As far as we are aware, the Holodesk is the only existing system to augment a real
+interactive space with colocated virtual objects.
+
+\subsection{Evaluation of 3D User Interfaces}
+Several studies have investigated the effectiveness of novel, high-DOF input devices by directly comparing them to traditional devices, especially the mouse.
+Evaluation methods generally involve performing fundamental 3D tasks, especially selection, placement, and rotation. Input methods are compared based on their
+speed and accuracy. The SpaceNavigator, a commercially available high DOF devices, was found to be inferior to the mouse for placement tasks in 
+\cite{mattheiss2011navigating}. B{\'e}rard et al also found the mouse to be more effective than several high-DOF devices for placement tasks 
+in \cite{study1}.  However, a later study by the same group found that enhanced visual feedback, in the form of pop-up depth views, greatly enhanced the effectiveness
+of the high-DOF device, and was found to perform better than the mouse \cite{study2}. The
+evaluation of the Holodesk system also involved a user study, in which they compared performance on a selection task with varying depth cues. They found that aligned
+stereoscopic display systems were better than aligned non-stereoscopic systems with appropriate occlusion cues, and unaligned displays were slowest \cite{holodesk}. 
+We borrow our primary experimental procedure from \cite{study1, study2}.
 % ------------------------------------- IMPLEMENTATION --------------------------------------
 \section{Holograsp Implementation}
 \subsection{Software Architecture}
@@ -101,14 +161,14 @@ The stereoscopic effects in 3D Vision Automatic are controlled via abstracted op
 3D Vision Automatic renders stereoscopically by duplicating any Direct3D calls that render to the backbuffer, and modifying the appropriate
 transformation matrices so that the duplicated rendering instructions appear to have been issued for two eyes. The $x$-coordinate of any geometric
 coordinates $(x_{2d}, y, z, w)$ is shifted into two stereo coordinates $(x_{left}, y, z, w)(x_{right}, y, z, w)$ based on the equations
-$$x_{left} = x_{2d} + s(w - c)$$
-$$x_{right} = x_{2d} - s(w - c)$$
+$$x_{left} = x_{2d} - s(w - c)$$
+$$x_{right} = x_{2d} + s(w - c)$$
 where $s$ is the eye separation and $c$ is the convergence depth \cite{nvidia3dvision}. We note in particular that $w<c$ gives out of screen effects, where
 the left eye image is to the right of the right eye image and vice versa. Unfortunately, these two quantities $s, c$ are in eye coordinates and not
 physical coordinates, which necessitates a further remapping step for proper calibration.
 
 Because of the constraints on stereoscopic rendering methods, Holograsp supports both OpenGL and Direct3D rendering APIs under a unified interface.
-Currently, only simpler calls such as camera manipulation, transformation matrices, point rendering, and polygon rendering are supported. In addition,
+Currently, only fundamental calls such as camera manipulation, transformation matrices, point rendering, and polygon rendering are supported. In addition,
 we include fairly simple mesh rendering functionality. This general rendering interface is exposed to client applications. It is somewhat surprising that
 a unified wrapper does not already exist, given the popularity of OpenGL and Direct3D; this component of Holograsp is one that can be easily extended for
 more advanced rendering capabilities.
@@ -136,14 +196,14 @@ to obtain its depth images. The characteristics of each device are compared in T
 \begin{table}[h]
 \begin{tabular}{|c|c|}
 \hline
-\bf{Microsoft Kinect} & \bf{CIGcam} \\ \hline
+{\bf Microsoft Kinect} & {\bf CIGcam} \\ \hline
 Interaction range of 40cm to 400cm & Interaction range of 15cm to 100cm \\
 $640 \times 480$ depth image resolution & $320 \times 240$ depth image resolution \\
 Depth image holes at high curvature points & No holes \\
 Moderate depth noise & Heavy depth noise \\
 Noise typically under 3cm & Noise typically under 5cm \\
 SDK focused on whole-body skeletal tracking & SDK focused on finger and face tracking \\
-\$150USD in cost & \$150 USD in cost \\
+\$150 USD in cost & \$150 USD in cost \\
 \hline
 \end{tabular}
 \caption{Comparison of Microsoft Kinect and Creative Interactive Gesture Cam}
@@ -411,7 +471,7 @@ The participant was then introduced to the full Holograsp 3D-gesture interface, 
 spaces and the calibration procedure. They once again had the opportunity to finish up to ten tasks using this interface.
 
 After familiarizing themselves with the interface, the participants then performed the full round of timing experiments. These
-experiments used a within-factor design, with independent variables of output modality (2D vs. 3D) and input modality (gesture vs. mouse).
+experiments used a within-subjects design, with independent variables of output modality (2D vs. 3D) and input modality (gesture vs. mouse).
 For each of the four interface combinations (2D-Mouse, 2D-Gesture, 3D-Mouse, and 3D-Gesture), the participant completed a 
 run of ten consecutive placement tasks. Participants performed two blocks of these 40 tasks, for a total of $(14)(2)(40) = 1120$
 placement tasks. Each run of tasks was preceded by one untimed task to give the user time to adapt to the interface, and 
