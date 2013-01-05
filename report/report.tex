@@ -16,16 +16,19 @@
 
 \begin{abstract}
 Traditional computer interfaces, namely the mouse and monitor, are inherently 2D. Thus, performing 3D tasks using
-these interfaces is often challenging because both input and output are missing a dimension. Surprisingly,
-previous work has consistently found the mouse to be superior to custom devices with three or more degrees
-of freedom (DOF). We hypothesize that the disconnect between the input device and the visual feedback is the
+these interfaces is often challenging and unintuitive. Surprisingly,
+previous work has consistently found the mouse to be superior for 3D tasks to custom devices with three or more degrees
+of freedom (DOF). We postulate that there is a disconnect between input devices and visual feedback which is the
 source of the poor performance of high DOF devices. To investigate this hypothesis, we developed the Holograsp
 system. Holograsp uses a stereoscopic 3D monitor to display virtual 3D objects as if they were floating in
 space in front of the monitor; users can reach out and grasp these models to move them, as if they were real
-objects. We performed an experiment comparing the efficacy of Holograsp with traditional 2D input and output
-interfaces by measuring the time taken to complete 3D placement tasks. The results show that, although the
-pop-out stereoscopic effects were difficult for some people to perceive, the combination of stereoscopic 3D
-feedback and natural gestural interface was by far the most effective and intuitive system.
+objects. By colocating the display positions of virtual objects with the interaction space of a gestural input system,
+Holograsp eliminates the gap between input device and visual feedback.
+We performed an experiment comparing the efficacy of Holograsp with traditional 2D input and output
+interfaces by measuring the average time taken to complete 3D placement tasks. Although 
+pop-out stereoscopic effects were difficult for some participants to perceive, Holograsp was the fastest
+and most intuitive interface for the remaining users. This suggests that the alignment of stereoscopic 3D
+feedback and a natural gestural interface is a very effective design for 3D user interfaces.
 \end{abstract}
 
 \newpage
@@ -36,31 +39,34 @@ feedback and natural gestural interface was by far the most effective and intuit
 We live in a world of three spatial dimensions, which gives us an intuitive grasp on how to interact with
 physical objects. If we see a book on a bookshelf, we can reach out and grab the correct book with
 absolute confidence in where our hand is going. However, this physical intuition is absent in current 3D interactive
-systems. In modern 3D modelling and CAD tools, we are forced to view naturally 3D objects on 2D monitors, and have to
+systems. In modern 3D modelling and CAD tools, we are forced to view 3D objects on 2D monitors, and have to
 select, move, and rotate objects and our viewpoint using a keyboard and 2 DOF mouse. This often results in unintuitive and
-tedious workflows; in a 3D virtual world, to move an object we generally have to unnaturally decompose the movement of the
-object into several orthogonal directions, examining the appropriate orthogonal projections until the placement is correct.
+tedious workflows; to move an object in a 3D virtual world, we have to unnaturally decompose the movement of the
+object into several planar components, usually through the use of orthogonal projections (such as the top view, side view, and front view),
+until the placement is correct.
 What if we could achieve this placement task as fluidly and naturally as if we were manipulating a real object? This
 physical intuitiveness is the motivation behind the development of the Holograsp system presented in this paper.
 
 Several existing systems have already attempted to make use of physical intuition by developing high DOF input 
-devices to interact with 3D information \cite{manders2010gesture, mattheiss2011navigating, mine1997moving}.
+devices to interact with 3D information. These input methods range from desktop joystick-like
+devices \cite{mattheiss2011navigating}, to handheld proxies for virtual objects \cite{mine1997moving}, to empty-handed gestural interactions realized via 
+external sensors \cite{manders2010gesture}.
 However, numerous studies have found that these devices are inferior to the mouse in terms of speed and accuracy \cite{mattheiss2011navigating, study1}.
-We propose that the major problem with most of these systems is that half of the nature of the intuition is missing. While the input device is certainly
-natural, the visual feedback is rarely aligned with the input device. Instead, the natural input device is used to manipulate an onscreen object, far
+We posit that the major problem with these systems is their focus on only half of the factors relevant for intuition: although they focus on the intuitiveness of 
+the input device, the visual feedback is rarely adapted to react seamlessly with the input device. Instead, the natural input device is used to manipulate an onscreen object, far
 removed from being able to intuitively reach out to the object. In our bookshelf example, we must manipulate the book at the end of a long stick, instead of
 instinctively grabbing it. Our hypothesis is that, if we colocate the gestural interaction space with a 3D display space with appropriate depth cues, we can regain
-the full intuitiveness of interacting with physical objects. Imagine that your bookshelf on the other side of the room was displayed as if it were right
+the full intuitiveness of interacting with physical objects. Imagine that your bookshelf, physically located on the other side of the room, was virtually displayed as if it were right
 in front of you; you can once again reach out and "grab" your desired book intuitively, as if it was real.
 
 In this paper, we make two main contributions:
 \begin{itemize}
 \item We present Holograsp, a 3D manipulation system, to show the feasibility of colocating display and gestural spaces.
-\item We show the benefits of such systems through a user study involving 3D manipulation tasks, in which we compare the
+\item We show the benefits of this coupled gestural input and visual output through a user study involving 3D manipulation tasks, in which we compare the
 performance of Holograsp with traditional interfaces.
 \end{itemize}
 
-To motivate these contributions, we first inspect related works in 3D user interfaces and mixed reality. We then show how Holograsp fits
+To motivate these contributions, we first inspect related studies and systems in 3D user interfaces and mixed reality. We then show how Holograsp fits
 into the existing work by describing the design of Holograsp, including the software architecture, input and output device considerations,
 and the alignment process. We then present our experimental methodology to justify our evaluation methods. Finally, we discuss the results
 of our experiments and provide some possibilities for future research. 
@@ -69,13 +75,13 @@ of our experiments and provide some possibilities for future research.
 \section{Background and Related Work}
 \subsection{Mixed Reality}
 Effective usage of computer systems depends on how users conceptualize their interactions with the system.
-Perhaps the most obvious method is to present computer data in a physically motivated setting, translating
+Perhaps the most obvious method is to present computer data in a physically motivated setting, adapting
 human intuition about the physical world into natural interactions with the system. Because of the nature of 3D data,
-it is especially appropriate to conceptualize 3D interactions in physical terms. Milgram and Kishino present
+it is especially appropriate to conceptualize 3D interactions in physical terms by analogy with the real world. Milgram and Kishino present
 the virtuality continuum of {\bf Mixed Reality} environments, describing the degree of overlap between the
 real world environment and the system's virtual environment, in \cite{milgram1994taxonomy}. Real environments, namely
-the real world, contain only real objects, and {\bf Virtual Reality} environments, such as 3D worlds in video games, contain only
-virtual objects. A well-known intermediate between these two extremes is {\bf Augmented Reality}, in which virtual
+the real world, contain only real objects, and {\bf Virtual Reality} (VR) environments, such as 3D worlds in video games, contain only
+virtual objects. A well-known intermediate between these two extremes is {\bf Augmented Reality} (AR), in which virtual
 objects are placed within the real world. such as the CAD modelling systems in the Iron Man films. Another intermediate is
 {\bf Augmented Virtuality}, in which some real objects (usually the user's own body) are placed within a virtual world; a common
 example of augmented virtuality is green-screening, where a user interacts in front of a blank screen but is displayed in a
@@ -83,56 +89,61 @@ different, virtual world.
 
 \subsection{Virtual Reality}
 There has been a significant amount of academic work published on virtual reality, especially
-in {\bf immersive virtual reality}, where the user perceives themselves to be in the virtual environment. Immersive
+in {\bf immersive virtual reality}, where the user perceives themselves to be in the virtual environment. This is in
+contrast with virtual worlds rendered on monitors, which provide a window into the virtual world instead of complete immersion.
+Immersive
 virtual reality systems generally use Head-Mounted Displays (HMDs) for complete visual immersion, and have been studied
-as far back as 1968, when Sutherland introduced the first HMD \cite{sutherland1968head}. Although immersive virtual reality
+since 1968, when Sutherland introduced the first HMD \cite{sutherland1968head}. Although immersive virtual reality
 systems provide perceptual realism, interaction with such systems is difficult because users cannot physically see any input devices.
-Some systems have the human body as the main interface controller, such as \cite{laviola1999whole, laviola1999flex}. Other systems render
+Some systems use the human body as the main interface controller, such as \cite{laviola1999whole, laviola1999flex}. Other systems render
 virtual analogues of physical input devices, such as the virtual tablet in \cite{poupyrev1998virtual} or the cubes used in \cite{mine1997exploiting}.
-Another common strategy is to use multimodal input, especially the combination of physical and voice systems, as in \cite{bolt1980put}.
-In all of these cases, the visual feedback is critical for effective usage of these devices.
+Another common interaction strategy is to use multimodal input, especially the combination of physical devices and voice recognition systems, as in \cite{bolt1980put}.
+In all of these systems, visual feedback is critical for effective interaction in the virtual world.
 
 \subsection{Augmented Reality}
-In contrast to virtual reality, {\bf Augmented Reality} involves placing virtual objects within the real world. The main challenge
-in augmented reality is placing virtual objects into the real world. This involves two components: displaying the object, and
-determining the location of the virtual object relative to the display \cite{zhou2008trends}. Although early systems focused on head mounted displays,
-many drawbacks such as latency, field of view, and improper tracking \cite{hoffman2008vergence} have resulted in a shift towards different display methods.
-Commercial and academic augmented reality systems now tend to use smartphones and tablets as "windows" into the augmented world. In this usage, the device's camera
-image is combined with virtual objects to be displayed on the screen, so that moving the "window" around presents different views of the real environment; such systems
-include DRIVE \cite{kim2011drive} and T(ether) \footnote{http://kiwi.media.mit.edu/tether/}.
+In contrast to virtual reality, {\bf Augmented Reality} involves placing virtual objects within the real world. This is a challenging task that involves two
+components: determining the location of the virtual object relative to the display, and rendering the object within the real environment. \cite{zhou2008trends}.
 
-Another aspect of augmented reality is tracking of a display's location so that the virtual object can be correctly overlaid onto the display.
-Currently, the dominant strategy for tracking is to use fiducial markers. Fiducial markers are two-dimensional shapes placed in the environment
+To render virtual objects, an AR system needs to know where the display is in relation to real world objects; this usually involves tracking the position and orientation a camera attached to the
+display. Currently, the dominant tracking strategy in AR is to use fiducial markers. Fiducial markers are two-dimensional shapes placed in the environment
 that can be used to determine the relative position and orientation of a camera using computer vision techniques. Works using fiducial markers include
 \cite{kato1999marker, artoolkit, dedual2011creating}. Newer methods based on fiducial tracking can use arbitrary 2D images or structures as markers \cite{ferrari2001markerless, simon2000markerless}.
-Note that these marker-based techniques do not function
+However, neither fiducial markers nor these marker-based techniques function
 well if the markers are blurred, partially occluded, out of view, inconsistently lighted, or at extreme angles; some of these challenges are investigated in \cite{fiala2010designing}. Other methods of tracking include inertial
 tracking, which use accelerometers and gyroscopes without an external frame of reference \cite{lang2002inertial}, and markerless tracking, which uses optical flow and
-stereo reconstruction techniques to determine 3D motion of the camera \cite{comport2006real}.
+stereo reconstruction techniques to determine 3D motion of a camera \cite{comport2006real}.
 
+Early AR systems focused on head mounted displays, often using {\bf video see-through} techniques, where a small display in front of the user's eyes showed the augmented video
+stream from cameras located directly in front of the displays. This was effective because, like in immersive VR systems, the user perceived themselves as being inside the augmented environment.
+However, many drawbacks such as high latency, low field of view, and imprecise tracking \cite{hoffman2008vergence} have resulted in a shift towards different display methods.
+Modern commercial and academic augmented reality systems now tend to use smartphones and tablets as "windows" into the augmented world. These devices are well suited for such applications because
+of the integrated camera and display, their availability and portability, and their array of high-quality sensors. In this usage, virtual objects are overlaid on top of the
+device's camera image on the screen, so that moving the "window" around presents different views of the real environment; such systems
+include DRIVE \cite{kim2011drive} and T(ether) \footnote{http://kiwi.media.mit.edu/tether/}.
 \subsection{Colocation of Hands and Virtual Manipulation Controllers}
-Although several 3D manipulation systems have direct mappings between hand position and a virtual hand, such as \cite{poupyrev1996go},
+Mixed reality systems often focus on the human hand for natural interaction. 
+Although several 3D manipulation systems use direct mappings between hand position and a virtual hand, such as \cite{poupyrev1996go},
 comparatively few aim to make the perceived 3D position of the hand proxy be coincident with the user's natural perception of their
 hand location. The relevant perceptual phenomenon, known as {\bf proprioception}, is a person's automatic knowledge of the position and orientation of their
-limbs relative to themselves. The use of proprioception in 3D interfaces was heavily investigated by Mine in \cite{mine1997exploiting}, which found that
+limbs relative to themselves. The use of proprioception in 3D interfaces was investigated by Mine in \cite{mine1997exploiting}, which found that
 in an immersive virtual environment, manipulating objects colocated with the users hand was more efficient than manipulation at an offset. Several systems,
-such as \cite{mulder2002personal, prachyabrued2011dropping}, use a tabletop with a mirrored display above it; in these systems the interaction space underneath
-the display is directly mapped to what the user sees in the display. The preceding systems are strictly virtual reality systems, since the actual environment displayed
-is still completely synthesized. Recent work by Microsoft Research, such as the Holodesk \cite{holodesk}, has instead used half-silvered mirrors to create an augmented reality
-interaction space, where the user can see their hands interacting with colocated virtual objects. Holodesk focused on realistic physical interactions within the space,
+such as \cite{mulder2002personal, prachyabrued2011dropping}, use a two-layered tabletop with a mirrored display above a physical table; in these systems the interaction space, underneath
+the display and above the table, is directly mapped to what the user sees in the display. The aforementioned systems are strictly virtual reality systems, since the actual environments displayed
+are still completely synthesized. Recent work by Microsoft Research, such as the Holodesk \cite{holodesk}, has instead used half-silvered mirrors to create an augmented reality
+interaction space, where the user can see their hands interacting in the same world as the virtual objects. Holodesk focused on realistic physical interactions within the space,
 representing real objects as point clouds that could knock over or hold up other objects. As far as we are aware, the Holodesk is the only existing system to augment a real
 interactive space with colocated virtual objects.
 
 \subsection{Evaluation of 3D User Interfaces}
-Several studies have investigated the effectiveness of novel, high-DOF input devices by directly comparing them to traditional devices, especially the mouse.
+Several studies have investigated the effectiveness of novel, high-DOF input devices for 3D tasks by directly comparing them to traditional devices, especially the mouse.
 Evaluation methods generally involve performing fundamental 3D tasks, especially selection, placement, and rotation. Input methods are compared based on their
-speed and accuracy. The SpaceNavigator, a commercially available high DOF devices, was found to be inferior to the mouse for placement tasks in
+speed and accuracy. The SpaceNavigator, a commercially available high DOF device, was found to be inferior to the mouse for placement tasks in
 \cite{mattheiss2011navigating}. B{\'e}rard et al also found the mouse to be more effective than several high-DOF devices for placement tasks
 in \cite{study1}.  However, a later study by the same group found that enhanced visual feedback, in the form of pop-up depth views, greatly enhanced the effectiveness
 of the high-DOF device, and was found to perform better than the mouse \cite{study2}. The
-evaluation of the Holodesk system also involved a user study, in which they compared performance on a selection task with varying depth cues. They found that aligned
+evaluation of the Holodesk system also involved a user study, in which they compared performance on a selection task with varying depth cues. This study focused on
+the effectiveness of aligning the location of physical objects in the tabletop space with the apparent locations of virtual objects. They found that aligned
 stereoscopic display systems were better than aligned non-stereoscopic systems with appropriate occlusion cues, and unaligned displays were slowest \cite{holodesk}.
-We borrow our primary experimental procedure from \cite{study1, study2}.
 % ------------------------------------- IMPLEMENTATION --------------------------------------
 \section{The Holograsp System}
 \subsection{Overview}
@@ -149,8 +160,8 @@ gestural and display spaces while the client program is free to use the display 
 is the timed 3D manipulation task harness used in the experiments section. The incarnation of the architecture used in the
 experiments used DirectX for graphics rendering, the Nvidia API for configuring the 3D monitor, and the Intel Perceptual
 Computing SDK for input.
-\subsubsection{Holograsp Engine}$ $\\
-The core engine uses the SDL library \footnote{http://www.libsdl.org/} for fundamental windowing and event handling.
+
+The core application engine uses the SDL library \footnote{http://www.libsdl.org/} for fundamental windowing and event handling.
 The engine performs the following tasks:
 \begin{itemize}
 \item Check for and handle mouse, keyboard, and application events.
@@ -263,7 +274,7 @@ interface.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{figures/fsm.png}
+\includegraphics[width=0.9\textwidth]{figures/fsm.png}
 \caption{Finite State Machine for Hand Selection States}
 \label{fig:fsm}
 \end{figure}
@@ -294,7 +305,7 @@ and orientation in the form of a matrix $M_{RT}$ mapping homogeneous coordinates
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{figures/hiro.png}
+\includegraphics[width=0.4\textwidth]{figures/hiro.png}
 \caption{Fiducial Marker used in ARToolkit}
 \label{fig:hiro}
 \end{figure}
@@ -421,12 +432,12 @@ manipulation used in the desktop. By holding down the spacebar, the cursor would
 $xz$ plane, parallel to the table surface. This had an intuitively correspondence to mouse movements; moving
 the mouse towards the screen would move the cursor into the screen. The $z$ distance was limited so that the
 cursor could not move behind the viewpoint of the scene. The $xz$ motion actually affected the actual $y$-coordinate
-in a way that corresponded with the perspective projection. For example, if the cursor near the bottom of the interaction
-space, moving the cursor into the screen also moved it downwards in the interaction space; this meant that the screen
+in a way that corresponded with the perspective projection. For example, if the cursor was near the bottom of the interaction
+space, moving the cursor into the screen also moved it upwards in the interaction space; as a result the screen
 coordinates of the cursor would not change with this interaction. An alternate method would have kept the $y$ coordinate
 constant during the $xz$ motion, so that the cursor would actually move up or down in screen coordinates as well. However,
 we found during preliminary experiments that the perspective-corrected method was much more natural for 2D views, and did
-not have a large impact when combined stereoscopic 3D views.
+not have a large impact when combined with stereoscopic 3D views.
 
 We experimented with two gestural interfaces. The first involved the thumb and index finger of a hand. The cursor would
 follow the user's hand when the thumb and index finger were extended and the remaining fingers were curled. The cursor
@@ -435,7 +446,7 @@ together and bringing them apart, respectively. This interface was designed such
 picking it up and dropping it. This interface used the hand pose tracking in the Intel Perceptual Computing SDK.
 However, we found that pose recognition
 was not robust under arbitrary orientations of the hand with respect to the depth camera. This interfered significantly with
-the placement task, since the system would detect false releases fairly often. The closed-source nature of the SDK meant that
+the placement task, since the system would detect false releases of the object fairly often. The closed-source nature of the SDK meant that
 we could not modify the tracking algorithms for our setting, either. Thus, for the placement task interface, we elected to
 relax the constraint of having a completely gestural interface, instead allowing the use of the keyboard for selection and
 deselection. In this simpler interface, the depth camera takes the blob of points nearest to the screen as the cursor location.
@@ -445,7 +456,17 @@ their pointing tool. This method suffered from occasional problems at extremes o
 might be closer to the screen than the fingertip), but these did not severely affect task performance.
 
 \subsubsection{Output Interfaces}$ $\\
-Both output interfaces incorporated similar feedback elements. Three geometric elements
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{figures/labelledexperiment.png}
+\caption{3D Manipulation Task Display \\
+The elements displayed in this figure correspond to the 2D multiview output mode. The stereoscopic
+output mode does not have the top view in the upper left corner, but the remaining objects are displayed
+such that they appear in front of the plane of the monitor.}
+\label{fig:experimentdisplay}
+\end{figure}
+Both output interfaces incorporated similar feedback elements. These elements are depicted in
+Figure~\ref{fig:experimentdisplay}. Three geometric elements
 appeared on the screen: a red icosahedron, representing the object to be manipulated, a
 cyan sphere, representing the destination for the icosahedron, and a green tetrahedron,
 denoting the cursor. The manipulable icosahedron changed color to blue when the cursor
@@ -635,7 +656,7 @@ completion times were not significant between the Holograsp interface and mouse 
 interesting results appear when we take stereoscopic perception into account. When we examine participants who expressed no difficulty with
 stereoscopic perception, the Holograsp interface was far and away the best interface. In fact the four fastest mean completion times were
 performed with Holograsp. This supports our initial theory that aligned gesture and display space was beneficial to performance, since weak
-stereoscopic perception implies that lack of a true display volume. However, this analysis is not conclusive, especially since these conclusions
+stereoscopic perception implies the lack of a true 3D display volume. However, this analysis is not conclusive, especially since these conclusions
 were drawn post-hoc. It is possible, for instance, that participants wished to justify poor performance by drawing attention to stereoscopic issues.
 We also note that those who did not express issues with stereoscopy on average performed better than their counterparts for all interfaces, suggesting
 that spatial reasoning skills may be correlated with stereoscopic perception ability.
@@ -679,24 +700,24 @@ It was evident from survey comments that technical details in the Holograsp inte
 polishing. Ten of the participants explicitly mentioned jitter as a problem with the gestural interface. We anticipate
 that using better algorithms and more accurate sensors, such as the Leap, will greatly enhance the usability of the
 gestural interface. Surprisingly, no users commented on stereoscopic inconsistencies caused by occlusions. We expected
-occlusion to be a significant downside to using a 3D monitor, since it was not possible to display a virtual object in front
-of a user's finger if the object was virtually located in front of the finger. This likely was a result of the sparse 3D
+occlusion to be a significant downside to using a 3D monitor, since it was not possible to render a virtual object such that it appeared in front
+of (and occluded) a user's finger, even if the object was virtually located in front of the finger. This likely was a result of the sparse 3D
 scene and the simple manipulations involved in the study. We did have two users comment that calibration
 was noticeably affected when they moved their heads. This suggests that head and viewpoint tracking would greatly enhance the 
 realism of the virtual scene.
 
 % ------------------------------------- CONCLUSION ----------------------------------------
 \section{Conclusion}
-In this paper, we presented the Holograsp system. Holograsp provides a natural way to interact with 3D data by colocating gestural interaction
+In this paper, we presented the Holograsp system. Holograsp provides a natural way for users to interact with 3D data by colocating gestural interaction
 space with a stereoscopic display volume. Holograsp knows that, if you place your finger on a virtual object, then you are interacting with that object at
 that point. With this sytem, we allow natural interactions such as grabbing a virtual object as if it were a real one.
 
-We also evaluated the Holograsp system by comparing it to traditional input and output systems. We performed a user study to determine whether
+We also evaluated the Holograsp system by comparing it to traditional input and output systems for 3D tasks. We performed a user study to determine whether
 using Holograsp was faster than other interfaces in a 3D placement task. We separated this analysis into two axes: Holograsp's 3D stereoscopic
 versus traditional multiview 2D displays with orthographic projections, and the gestural in-air interface versus traditional mouse inputs. We
 found that, for users who could perceive the colocated stereoscopic display, Holograsp was significantly faster than any other interface combination;
-however many users who did experience difficulties with stereoscopic perception, mouse interfaces were noticeably faster than gestural interfaces.
-This investigation showed promising results as a pilot study, but more experimentation is needed to provide conclusive support for these interfaces.
+however, for many users who did experience difficulties with stereoscopic perception, mouse interfaces were noticeably faster than gestural interfaces.
+This investigation showed promising results as a pilot study, but more experimentation is needed to draw definitve conclusions about these interfaces.
 
 Despite the shortcomings of the current system, the possibilities presented by Holograsp are quite exciting. Holograsp provides a framework that
 can support a full 3D modelling application with intuitive manipulation input mappings. The computer systems depicted in the Iron Man films are
