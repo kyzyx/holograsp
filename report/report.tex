@@ -143,7 +143,7 @@ in \cite{study1}.  However, a later study by the same group found that enhanced 
 of the high-DOF device, and was found to perform better than the mouse \cite{study2}. The
 evaluation of the Holodesk system also involved a user study, in which they compared performance on a selection task with varying depth cues. This study focused on
 the effectiveness of aligning the location of physical objects in the tabletop space with the apparent locations of virtual objects. They found that aligned
-stereoscopic display systems were better than aligned non-stereoscopic systems with appropriate occlusion cues, and unaligned displays were slowest \cite{holodesk}.
+stereoscopic display systems were better than aligned non-stereoscopic systems with appropriate occlusion cues, and unaligned displays resulted in the slowest performance \cite{holodesk}.
 % ------------------------------------- IMPLEMENTATION --------------------------------------
 \newpage
 \section{The Holograsp System}
@@ -544,18 +544,17 @@ experiments used a within-subjects design, with independent variables of output 
 For each of the four interface combinations (2D-Mouse, 2D-Gesture, 3D-Mouse, and 3D-Gesture), the participant completed a
 run of ten consecutive placement tasks. Participants performed two blocks of these 40 tasks, for a total of $(14)(2)(40) = 1120$
 placement tasks. Each run of tasks was preceded by one untimed task to give the user time to adapt to the interface, and
-in the 3D-Gesture case, perform calibration.
-
-In each task, the locations of the target and destination objects were selected uniformly at random in the interaction space. The
+in the 3D-Gesture case, perform calibration. In each task, the locations of the target and destination objects were selected uniformly at random in the interaction space. The
 ordering of the interfaces within a run was also randomized; the one exception was that the last interface in a block
 would not be selected as the first interface in the subsequent block.
 
 The quantitative data collected was the time in milliseconds for every selection and release event. We did not formally
 collect data on movement trajectories, but we did make qualitative observations on general trends in
 trajectories. After completion of the second block, participants were asked to fill out a survey involving several questions
-about their perceptions of the interfaces. We asked participants to compare input modalities and output modalities, as well as
-make general observations about the efficacy of the system. We also asked a series of short questions asking participants for
-the interface choices best fitting a certain criterion, including a short justification. These criteria were:
+about their perceptions of the interfaces. We asked participants to compare the mouse and gesture input modalities, describing the relative
+merits of both interfaces. We asked an analogous question comparing the 2D and 3D output modalities. We also asked for
+general observations about the efficacy of the system and suggestions for improvement. Finally, we asked a series of short questions asking participants for
+the interface choices best fitting a certain criterion, as well as a short justification for their vote. These criteria were:
 \begin{itemize}
 \item Their personal favorite
 \item The easiest to use for completing the task
@@ -568,11 +567,11 @@ the interface choices best fitting a certain criterion, including a short justif
 \subsection{Results}
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{figures/aggmean.png}
-\caption{a) Mean placement times for each interface in a. time until first
-selection, b. time from first selection until task completion, and c. total task
-completion time. All data includes 95\% confidence intervals. \\
-b) Distribution of total placement times for each interface. Whiskers are
+\includegraphics[width=0.99\textwidth]{figures/aggmean.png}
+\caption{a) Mean placement times with 95\% confidence intervals for each interface for time until first
+selection, time from first selection until task completion, and total task
+completion time. \\
+b) Distribution of placement times for each interface. Whiskers are
 at most 1.5 IQR in length. Note that three outliers with completion time $> 40000$
 for the 2D gesture interface are not shown.}
 \label{fig:aggregate}
@@ -602,7 +601,8 @@ the pop-out stereoscopic effects. Figure~\ref{fig:sepmean} compares the mean
 time to task completion for each interface and each stereoscopic perception
 group. Pairwise t-tests show significant differences between performance between
 the groups for the 3D gesture interface ($p < 0.01$) but not for any other
-interfaces ($p > 0.05$).
+interfaces ($p > 0.05$). 
+% FIXME - Put more here
 
 Because of the large differences in task performance between individuals, we
 also examined participant performance relative to their own completion times.
@@ -616,22 +616,22 @@ by the 2D mouse mean completion time.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.9\textwidth]{figures/f1.pdf}
+\includegraphics[width=0.9\textwidth]{figures/f1.png}
 \caption{Relative completion times for 3D mouse and 2D mouse interfaces,
 normalized by 3D gesture completion times.}
 \label{fig:mousevs3dg}
 \end{figure}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\textwidth]{figures/f2.pdf}
+\includegraphics[width=0.9\textwidth]{figures/f2.png}
 \caption{Relative completion times for 3D gesture and 2D gesture interfaces,
 normalized by 2D mouse completion times.}
 \label{fig:gesturevs2dm}
 \end{figure}
 
 From Figure~\ref{fig:mousevs3dg}, we can observe that for most participants
-the two mouse interfaces were fairly similar in performance, since most points
-are fairly close to the $y = x$ line in blue. The plot also shows that the
+the two mouse interfaces were very similar in performance, since most points
+are fairly close to the $y = x$ line on the graph. The plot also shows that the
 participants with poor stereoscopic perception tended to be faster with the
 mouse interfaces than the gesture interface, since their data points tend to be below
 and to the left of the $y = 1, x = 1$ lines. Similarly, participants without
@@ -660,7 +660,7 @@ interface, and was regarded as ``beginner-friendly''. Surprisingly, even partici
 Some of these participants commented that they were occasionally ``able to lock on to depth cues,'' and therefore had experienced the benefits of the aligned gesture
 and display volumes. However, since it was clear to participants that the 3D gesture interface was the novel one, there was probably an unavoidable bias in the answers favoring it.
 The mouse interfaces were almost unanimously voted as most accurate, which was unsurprising given the jitter of the gestural interfaces and the
-2DOF stability of the mouse. The preferences for ``easiest'' and ``best [interface] for repetion'' were fairly evenly split between the mouse interfaces and the Holograsp
+2DOF stability of the mouse. The preferences for ``easiest'' and ``best [interface] for repetition'' were fairly evenly split between the mouse interfaces and the Holograsp
 interface; for these categories, participants who performed well with the 3D gesture interface were more likely to record a preference for the 3D gesture interface.
 
 % ------------------------------------- DISCUSSION ----------------------------------------
@@ -705,7 +705,7 @@ of visual feedback are as important, if not more important, than the actual inpu
 designed very carefully since generic interface patterns may not be sufficient for arbitrary tasks. In general, user interaction with 3D applications are very different from the idealized tasks
 of repeated placement. We would like 3D design experts to use Holograsp for actual CAD workflows, and we believe that comparing the productivity of Holograsp with
 traditional interfaces in real applications would be much more illustrative than our abstract study.
-Even within simplified task performance evaluation, we are interested in testing different tasks, such as rotation or docking, to determine how the nature of the
+Even within simplified evaluations, we are interested in testing different tasks, such as rotation or docking, to determine how the nature of the
 3D task affects interface choice.
 
 One very illuminating observation was the trajectories that participants took to move the target object.
@@ -728,8 +728,8 @@ places their finger ``behind'' the object 30cm in front of the monitor, there is
 even though the object should appear to block the finger. We believe that this problem was unnoticed because of the sparseness of the 3D
 scene and the simple manipulations involved in the study. We did have two users comment that calibration
 was noticeably affected when they moved their heads. This suggests that head and viewpoint tracking would greatly enhance the 
-realism of the virtual scene. The combination of head tracking and stereoscopic monitors is a common 3D display technique known as {\bf fishtank VR}
-and is used in \cite{holodesk}. Although many natural depth cues are absent in the current implementation of Holograsp, it is promising that
+realism of the virtual scene. The combination of head tracking and stereoscopic monitors is a common 3D display technique known as fishtank VR
+and is used many systems including Holodesk \cite{holodesk}. Although many natural depth cues are absent in the current implementation of Holograsp, it is promising that
 stereoscopic cues already have a noticeable benefit for intuitive 3D interaction.
 
 % ------------------------------------- CONCLUSION ----------------------------------------
