@@ -166,7 +166,7 @@ for the purposes of this paper we implemented an application that measured perfo
 Holograsp uses a heavily abstracted engine to facilitate substitution of input and output devices, and invites the construction of
 client applications; Holograsp provides the alignment of the
 gestural and display spaces while the client program is free to use the display and input in any way desired. Our example client application
-is the timed 3D manipulation task harness used in the experiments section. The incarnation of the architecture used in the
+is the timed 3D manipulation task runner used in the experiments section. The incarnation of the architecture used in the
 experiments used DirectX \footnote{http://windows.microsoft.com/en-US/windows7/products/features/directx-11} for graphics rendering, the Nvidia API \footnote{https://developer.nvidia.com/nvapi} for configuring the 3D monitor, and the Intel Perceptual
 Computing SDK \footnote{http://windows.microsoft.com/en-US/windows7/products/features/directx-11} for input processing.
 The core application engine uses the SDL library \footnote{http://www.libsdl.org/} for fundamental windowing and event handling.
@@ -399,7 +399,7 @@ This matrix is considerably simpler than a full rotation-translation matrix. Thi
 their eyes.
 Camera intrinsic, perspective, and transformation matrices are all linear, as is the stereoscopic approximation used in Nvidia 3D Vision
 Automatic. in particular, the $c$ depth convergence parameter is simply an artificial depth offset. We therefore felt justified in choosing
-a linear transformation to represent the display to world calibration matrix.
+a linear transformation to represent the mapping from display coordinates to world coordinates.
 \item Nvidia 3D Vision Automatic does not allow for head roll; this is a fairly safe operating assumption since people generally do
 not tilt their heads to the side significantly when working with visual displays. Thus, we assume that the $x$ and $y$ coordinates are
 independent. This makes calibration much simpler, since we can indepently calibrate the $x$ and $y$ dimensions.
@@ -475,12 +475,23 @@ standard orthographic projections. For input interfaces, we compare the traditio
 mouse interface with a natural user interface that used gesture.
 
 Our goals in comparing both output and input interfaces were based on the belief that the
-efficacy of input devices was closely tied to the feedback provided to the user, in other words, the
-output methodology. In particular, we hypothesized that natural stereoscopic
+efficacy of input devices was closely tied to the feedback, especially the visual feedback, provided to the user.
+In particular, we hypothesized that natural stereoscopic
 depth cues, when spatially coupled with a gestural in-air interface as in Holograsp, would make full use of
 physical intuition. With this interface, users could imagine the task as simply reaching
 out to a physical object and moving it to another location with their hands, instead of
-indirectly controlling an abstract cursor with their actions.
+indirectly controlling an abstract cursor with their actions. A visualization of this interaction is shown in Figure~\ref{fig:user}a.
+We also show what this interaction looks like to a bystander in Figure~\ref{fig:user}b.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.99\textwidth]{figures/pointcloud.png}
+\caption{Interacting with Holograsp\\
+On the left, we show a point cloud visualization of the interaction space, with the raw input from the depth image and the scene elements aligned.
+On the right, we show a photograph of a user interacting with Holograsp, and also identify the input and output hardware. Note that both left
+and right eye images appear on the screen because of the exposure time of the photograph.}
+\label{fig:user}
+\end{figure}
 
 \subsubsection{Input Interfaces}$ $\\
 Both input interfaces involved a cursor element that was controlled by the user's actions. The user
@@ -519,15 +530,6 @@ their pointing tool. This method suffered from occasional problems at extremes o
 might be closer to the screen than the fingertip), but these did not severely affect task performance.
 
 \subsubsection{Output Interfaces}$ $\\
-\begin{figure}
-\centering
-\includegraphics[width=0.99\textwidth]{figures/labelledexperiment.png}
-\caption{3D Manipulation Task Display \\
-The elements displayed in this figure correspond to the 2D multiview output mode. The stereoscopic
-output mode does not have the top view in the upper left corner, but the remaining objects are displayed
-such that they appear in front of the plane of the monitor.}
-\label{fig:experimentdisplay}
-\end{figure}
 Both output interfaces incorporated similar feedback elements. These elements are depicted in
 Figure~\ref{fig:experimentdisplay}. Three geometric elements
 appeared on the screen: a red icosahedron, representing the object to be manipulated, a
@@ -539,6 +541,16 @@ cyan when the cursor was overlapping it. These feedback elements made the criter
 performing each action in the task evident -
 any movement, selection, or release condition would be clearly indicated to prevent any user
 confusion. This is a fundamental user interface design principle \cite{bravenuiworld}.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.99\textwidth]{figures/labelledexperiment.png}
+\caption{3D Manipulation Task Display \\
+The elements displayed in this figure correspond to the 2D multiview output mode. The stereoscopic
+output mode does not have the top view in the upper left corner, but the remaining objects are displayed
+such that they appear in front of the plane of the monitor.}
+\label{fig:experimentdisplay}
+\end{figure}
 
 The output interfaces differed in their presentation of depth cues. In the 2D output mode,
 the main view of the screen was a perspective projection of the interaction space that
@@ -568,12 +580,15 @@ video games to convey depth information.
 \subsection{Procedure}
 The user study was centered around the 3D placement task. Volunteers were solicited
 through word of mouth and departmental Facebook groups. We collected data from 14 participants,
-consisting of 13 males and one female. One male participant was a graduate student in computer
-science; 10 participants were undergraduates in computer science and the remaining participants
+consisting of 13 males and one female. One male participant was a graduate student in Computer
+Science; ten participants were undergraduates in Computer Science and the remaining participants
 concentrated in East Asian Studies, Mathematics, and Astrophysics.
 
 Before the task participants were asked to fill out a survey describing their experience with
-gestural systems, stereoscopic 3D, CAD and 3D modelling, and electronic gaming.
+gestural systems, stereoscopic 3D, CAD and 3D modelling, and electronic gaming. Several participants
+had been heavy gamers, but very few had significant stereoscopic 3D experience and none had spent more
+than five minutes with 3D CAD software.
+
 The participants were then introduced to the system to familiarize themselves with the placement task, the pop-out
 stereoscopy and the gesture system. An experimenter was with the participant at all times during
 the use of the system. The participants were first exposed to the pop-out stereoscopic effects;
@@ -594,13 +609,13 @@ in the 3D-Gesture case, perform calibration. In each task, the locations of the 
 ordering of the four interface combinations within a run was also randomized; the one exception was that the last interface in a block
 would not be selected as the first interface in the subsequent block.
 
-The quantitative data collected was the time in milliseconds for every selection and release event. We did not formally
+For quantitative data, we collected the time in milliseconds between every selection and release event. We did not formally
 collect data on movement trajectories, but we did make qualitative observations on general trends in
-trajectories. After completion of the second block, participants were asked to fill out a survey involving several questions
+trajectories. After completion of the second block, participants were filled out a survey involving several questions
 about their perceptions of the interfaces. We asked participants to compare the mouse and gesture input modalities, describing the relative
 merits of both interfaces. We asked an analogous question comparing the 2D and 3D output modalities. We also asked for
-general observations about the efficacy of the system and suggestions for improvement. Finally, we asked a series of short questions asking participants for
-the interface choices best fitting a certain criterion, as well as a short justification for their vote. These criteria were:
+general observations about the efficacy of the system and suggestions for improvement. Finally, the participants selected the interfaces they
+believed best fit certain criteria, and presented a short justification for their vote. These criteria were:
 \begin{itemize}
 \item Their personal favorite
 \item The easiest to use for completing the task
@@ -662,24 +677,24 @@ by the 2D mouse mean completion time.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.9\textwidth]{figures/f1.png}
+\includegraphics[width=0.85\textwidth]{figures/f1.png}
 \caption{Relative completion times for 3D mouse and 2D mouse interfaces,
 normalized by 3D gesture completion times.}
 \label{fig:mousevs3dg}
 \end{figure}
 \begin{figure}
 \centering
-\includegraphics[width=0.9\textwidth]{figures/f2.png}
+\includegraphics[width=0.85\textwidth]{figures/f2.png}
 \caption{Relative completion times for 3D gesture and 2D gesture interfaces,
 normalized by 2D mouse completion times.}
 \label{fig:gesturevs2dm}
 \end{figure}
 
-From Figure~\ref{fig:mousevs3dg}, we can observe that for most participants
-the two mouse interfaces were very similar in performance, since most points
-are fairly close to the $y = x$ line on the graph. The plot also shows that the
+From Figure~\ref{fig:mousevs3dg}, we observe most points
+are fairly close to the $y = x$ line on the graph. This implies that neither
+mouse interface outperformed the other for most people. The plot also shows that the
 participants with poor stereoscopic perception tended to be faster with the
-mouse interfaces than the gesture interface, since their data points tend to be below
+mouse than the gesture interface, since their points tend to be below
 and to the left of the $y = 1, x = 1$ lines. Similarly, participants without
 stereoscopic perception issues are above and to the right of $y = 1, x = 1$.
 
