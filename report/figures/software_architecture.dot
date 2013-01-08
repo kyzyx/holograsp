@@ -1,0 +1,46 @@
+digraph G {
+    edge[fontname="Courier"];
+    subgraph clusterinput {
+        label="Input Devices and Libraries"
+        fontname="Arial";
+        labeljust=l;
+        node [style=filled,color=white];
+        style=filled;
+        color=lightgrey;
+        inputdevice -> sdk [label="Raw Data"];
+        inputdevice [label="Input Device"]
+        sdk [label="Vendor SDK"]
+    }
+    subgraph clusteroutput {
+        label="Output Devices and Libraries";
+        fontname="Arial";
+        labeljust=l;
+        node [style=filled,color=white];
+        style=filled;
+        color=lightgrey;
+        //nv3d -> monitor [label="Rendered Frame",constraint=false];
+        nv3d -> monitor [label="Rendered Frame"];
+        nv3d [label="Nvidia 3D Vision Automatic"];
+        monitor [label="3D Monitor"];
+    }
+    subgraph clusterholograsp {
+        label="Holograsp Framework";
+        fontname="Arial";
+        color=black;
+        labeljust=l;
+        layer1 -> layer2 [label="Raw Data\l  Coordinates: camera space\l  Format: Holograsp format\l"];
+        kbd [label="Keyboard, mouse, and GUI"];
+        render [label="Holograsp Renderer"];
+        layer1 [label="Layer 1 Input Processing"];
+        layer2 [label="Layer 2 Input Processing"];
+        layer2 -> app [label="Semantic Data (world space)",weight=100];
+        kbd -> app [label="Keyboard, Mouse, and GUI Events",weight=100];
+        app -> render [label="Scene (world space)",];
+        app [label="Client Application Logic"];
+    }
+    sdk -> layer1 [label="Raw Data\l  Coordinates: camera space\n  Format: SDK format\l"];
+    render -> nv3d [label="Scene (display space)"];
+
+    {rank=same; layer2; kbd;}
+    {rank=min; inputdevice;}
+}

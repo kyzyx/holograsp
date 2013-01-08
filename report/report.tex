@@ -2,6 +2,7 @@
 \newcommand{\IWreport}{2012}
 \usepackage[normalem]{ulem}
 \usepackage{setspace}
+\AtBeginEnvironment{tabular}{\singlespacing}
 
 \begin{document}
 
@@ -23,7 +24,7 @@ source of the poor performance of high DOF devices. To investigate this hypothes
 system. Holograsp uses a stereoscopic 3D monitor to display virtual 3D objects as if they were floating in
 space in front of the monitor; users can reach out and grasp these models to move them, as if they were real
 objects. By colocating the display positions of virtual objects with the interaction space of a gestural input system,
-Holograsp eliminates the gap between input device and visual feedback.
+Holograsp eliminates the discrepancy between input device and visual feedback.
 We performed an experiment comparing the efficacy of Holograsp with traditional 2D input and output
 interfaces by measuring the average time taken to complete 3D placement tasks. Although 
 pop-out stereoscopic effects were difficult for some participants to perceive, Holograsp was the fastest
@@ -36,6 +37,7 @@ feedback and a natural gestural interface is a very effective design for 3D user
 \newpage
 
 \section{Introduction}
+\label{sec:intro}
 We live in a world of three spatial dimensions, which gives us an intuitive grasp on how to interact with
 physical objects. If we see a book on a bookshelf, we can reach out and grab the correct book with
 absolute confidence in where our hand is going. However, this physical intuition is absent in current 3D interactive
@@ -61,18 +63,20 @@ in front of you; you can once again reach out and "grab" your desired book intui
 
 In this paper, we make two main contributions:
 \begin{itemize}
-\item We present Holograsp, a 3D manipulation system, to show the feasibility of colocating display and gestural spaces.
-\item We show the benefits of this coupled gestural input and visual output through a user study involving 3D manipulation tasks, in which we compare the
+\item We present Holograsp, a 3D manipulation system, to show the feasibility of colocating the stereoscopic display space and the gestural space.
+\item We evaluate  the benefits of this coupled gestural input and visual output through a user study involving 3D manipulation tasks, in which we compare the
 performance of Holograsp with traditional interfaces.
 \end{itemize}
 
-To motivate these contributions, we first inspect related studies and systems in 3D user interfaces and mixed reality. We then show how Holograsp fits
+To motivate these contributions, we first review related studies and systems in 3D user interfaces and mixed reality in Section~\ref{sec:background}. We then show how Holograsp fits
 into the existing work by describing the design of Holograsp, including the software architecture, input and output device considerations,
-and the alignment process. We then present our experimental methodology to justify our evaluation methods. Finally, we discuss the results
-of our experiments and provide some possibilities for future research. 
+and the alignment process, in Section~\ref{sec:holograsp}. We then present our experimental methodology to justify our evaluation methods in Section~\ref{sec:methodology}. 
+Finally, we discuss the results
+of our experiments and provide some possibilities for future research in Section~\ref{sec:study} and Section~\ref{sec:discussion}. 
 
 % ------------------------------------- RELATED WORK ----------------------------------------
 \section{Background and Related Work}
+\label{sec:background}
 \subsection{Mixed Reality}
 Effective usage of computer systems depends on how users conceptualize their interactions with the system.
 Perhaps the most obvious method is to present computer data in a physically motivated setting, adapting
@@ -120,6 +124,9 @@ Modern commercial and academic augmented reality systems now tend to use smartph
 of the integrated camera and display, their availability and portability, and their array of high-quality sensors. In this usage, virtual objects are overlaid on top of the
 device's camera image on the screen, so that moving the "window" around presents different views of the real environment; such systems
 include DRIVE \cite{kim2011drive} and T(ether) \footnote{http://kiwi.media.mit.edu/tether/}.
+
+Holograsp is an Augmented Reality system, since virtual objects are projected in front of the monitor. This categorization is important because it allows users to see their real body
+interacting with the virtual objects.
 \subsection{Colocation of Hands and Virtual Manipulation Controllers}
 Mixed reality systems often focus on the human hand for natural interaction. 
 Although several 3D manipulation systems use direct mappings between hand position and a virtual hand, such as \cite{poupyrev1996go},
@@ -131,8 +138,8 @@ such as \cite{mulder2002personal, prachyabrued2011dropping}, use a two-layered t
 the display and above the table, is directly mapped to what the user sees in the display. The aforementioned systems are strictly virtual reality systems, since the actual environments displayed
 are still completely synthesized. Recent work by Microsoft Research, such as the Holodesk \cite{holodesk}, has instead used half-silvered mirrors to create an augmented reality
 interaction space, where the user can see their hands interacting in the same world as virtual objects. Holodesk focused on realistic physical interactions within the space,
-representing real objects as point clouds that can knock over or hold up other objects. As far as we are aware, Holodesk is the only existing system to augment a real
-interactive space with colocated virtual objects.
+representing real objects as point clouds that can knock over or hold up other objects. As far as we are aware, Holodesk is the only existing system before Holograsp to take advantage of 
+proprioception and visual intuition by augmenting a real interactive space with colocated virtual objects. 
 
 \subsection{Evaluation of 3D User Interfaces}
 Several studies have investigated the effectiveness of novel, high-DOF input devices for 3D tasks by directly comparing them to traditional devices, especially the mouse.
@@ -147,6 +154,7 @@ stereoscopic display systems were better than aligned non-stereoscopic systems w
 % ------------------------------------- IMPLEMENTATION --------------------------------------
 \newpage
 \section{The Holograsp System}
+\label{sec:holograsp}
 \subsection{Overview}
 Holograsp is a software system that provides the capability of gesture recognition aligned with pop-out stereoscopic 3D rendering. 
 It does this by converting coordinates of a 3D input device into real-world coordinates, and then converting the 
@@ -159,18 +167,28 @@ Holograsp uses a heavily abstracted engine to facilitate substitution of input a
 client applications; Holograsp provides the alignment of the
 gestural and display spaces while the client program is free to use the display and input in any way desired. Our example client application
 is the timed 3D manipulation task harness used in the experiments section. The incarnation of the architecture used in the
-experiments used DirectX for graphics rendering, the Nvidia API for configuring the 3D monitor, and the Intel Perceptual
-Computing SDK for input processing.
+experiments used DirectX \footnote{http://windows.microsoft.com/en-US/windows7/products/features/directx-11} for graphics rendering, the Nvidia API \footnote{https://developer.nvidia.com/nvapi} for configuring the 3D monitor, and the Intel Perceptual
+Computing SDK \footnote{http://windows.microsoft.com/en-US/windows7/products/features/directx-11} for input processing.
 The core application engine uses the SDL library \footnote{http://www.libsdl.org/} for fundamental windowing and event handling.
-The engine performs the following tasks:
+The engine performs the following tasks (shown in Figure~\ref{fig:architecture}):
 \begin{itemize}
-\item Check for and handle mouse, keyboard, and application events.
-\item Check for new data from gestural input devices.
-\item Buffer and preprocess any new data into a standard form, specifically positions of fingers and depth data.
-\item Transform this raw data into application-specific data, such as parsing finger coordinates into a hand pose.
-\item Call application specific update functions, such as translating and rotating virtual objects, creating new models, or navigating menus.
-\item Render the scene in stereoscopic 3D.
+\item An event handler checks for and handle mouse, keyboard, and application events.
+\item An input device manager checks for new data from gestural input device SDKs.
+\item A Layer-1 input processor buffers and preprocesses any new data into a standard form, specifically positions of fingers and depth data.
+\item A Layer-2 input processor transforms this raw data into application-specific data, such as parsing finger coordinates into a hand pose.
+\item The client application provides specific update functions, which perform
+application logic such as translating and rotating virtual objects, creating new models, or navigating menus.
+\item The client application calls methods from a renderer, which translates the scene so that it can be rendered in stereoscopic 3D.
 \end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/software_architecture.pdf}
+\caption{Schematic of Data Flow in Holograsp\\
+Raw data includes depth images and joint coordinates. Semantic data includes
+gestural states and hand poses.}
+\label{fig:architecture}
+\end{figure}
 
 Most of these tasks are delegated to their own handlers, which are often application-specific.
 
@@ -206,14 +224,24 @@ of the coordinates is used in the standard projection matrix to store the eye-sp
 $w=1$ and ignores the $w$ coordinate. In 3D Vision Automatic the $w$ coordinate is used to control the degree of stereoscopic effect, and the
 developer can artificially set $w$ if appropriate \cite{nvidia3dvision}.
 
-The stereoscopic effects in 3D Vision Automatic are controlled by generic, non-application-specific settings; the user can manually control
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/popout.png}
+\caption{An object can be stereoscopically rendered so it appears to float in front of the monitor. The parameters $s$ and $c$ used in Nvidia 3D Vision Automatic are
+indicated in the diagram; $s$ is the intraocular distance and $c$ determines the $z$ coordinate at which objects appear to be located at the depth of the screen.
+Note that in pop-out rendering, the image for the left eye is to the right of the image for the right eye and vice versa. This provides the convergence depth cue,
+but forces users to cross their eyes in order to fuse the two images and often causes eyestrain.}
+\label{fig:stereo}
+\end{figure}
+
+Stereoscopic effects in 3D Vision Automatic are controlled by non-application-specific settings; the user can manually control
 eye separation and convergence depth settings.
-3D Vision Automatic renders stereoscopically by duplicating any Direct3D calls that render to the screen, and modifying the appropriate
-transformation matrices so that the duplicated rendering instructions appear to have been issued twice, once for each eye. The $x$-coordinate of any geometric
-coordinates $(x_{2d}, y, z, w)$ is shifted into two stereo coordinates $(x_{left}, y, z, w)(x_{right}, y, z, w)$ based on the equations
-$$x_{left} = x_{2d} - s(w - c)$$
-$$x_{right} = x_{2d} + s(w - c)$$
-where $s$ is the eye separation and $c$ is the convergence depth \cite{nvidia3dvision}. We note in particular that $w<c$ gives out of screen effects, where
+3D Vision Automatic renders stereoscopically by duplicating any Direct3D calls that render to the screen, and modifying the 
+resulting camera-based coordinates so that the rendering instructions appear to have been issued twice, once for each eye. Geometric
+coordinates $(x_{2d}, y, z, w)$ are shifted into two stereo coordinates $(x_{left}, y, z, w)(x_{right}, y, z, w)$ based on the equations
+$$x_{left} = x_{2d} - s(w - c) \hspace{30mm}
+x_{right} = x_{2d} + s(w - c)$$
+where $s$ is the eye separation and $c$ is the convergence depth \cite{nvidia3dvision}, as shown in Figure~\ref{fig:stereo}. We note in particular that $w<c$ gives out of screen effects, where
 the left eye image is to the right of the right eye image and vice versa. Unfortunately, these two quantities $s, c$ are in eye coordinates and not
 physical coordinates, which necessitates a complicated remapping step for proper calibration to real-world coordinates.
 
@@ -244,7 +272,7 @@ Ultimately, we selected the CIGcam for its more appropriate range of interaction
 capabilities of the Intel SDK.
 
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{tabular}{|c|c|}
 \hline
 {\bf Microsoft Kinect} & {\bf CIGcam} \\ \hline
@@ -266,17 +294,40 @@ accurate hand tracking. Unfortunately, although we are members of the Leap early
 before user studies could take place. Future iterations of Holograsp will likely incorporate the Leap sensor and SDK.
 
 \subsection{Gestural Input Processing}
-There are two software levels that handle gestural input. The Layer-1 input processor extracts raw data from input devices, usually through specific
-SDKs, and translates it into a standardized format for Holograsp applications. The second layer takes this data and performs heavier
+There are two software levels that handle gestural input. The Layer-1 input processor extracts raw data from input devices, usually through
+SDK-specific function calls, and them translates the data into a standardized format for Holograsp applications. The second layer takes this data and performs heavier
 parsing to extract higher level information from it. This includes translating finger coordinates into a hand pose, or extracting
 points of interest from a depth image. This two layer system facilitates the substitution of alternate input devices separately from
 gesture recognition algorithms.
 
-Input device SDKs usually consists of a depth image. A depth image is a grid of pixels, where each
+Input device SDKs usually provide a depth image. A depth image is a grid of pixels, where each
 pixel contains the distance from the camera to the nearest object along the ray through that pixel. Many SDKs
-also provide a color image from a camera, as well as positions of hands, fingers, heads, or other body parts.
-Layer-1 input processing classes tend to be simple wrappers for calls to the appropriate SDK, using a unified
-interface.
+also provide a color image from a camera. Finally, more sophisticated SDKs do some software processing on the
+raw images that calculate the positions of hands, fingers, heads, or other body parts. Some SDKs also provide
+additional data streams including audio input, infrared images, and accelerometer readings.
+
+Layer-1 input processing classes tend to be simple wrappers for calls to the appropriate SDK. These classes initialize input devices
+and SDKs, and poll the input devices for new data. Once new data is available, the Layer-1 class buffers
+the depth images and joint positions that are given by the SDK for a particular input device and then
+converts them into a common representation that Holograsp can use: depth images are formatted into a double-precision
+array in millimeters, and joint positions are read into a data structure containing mappings between joint type and coordinates.
+These common formats allows the Layer-2 classes to function independently of the input device and focus on semantic
+interpretation of the raw data. Currently we provide Layer-1 input processing classes for the Microsoft Kinect for Windows SDK and the
+Intel Perceptual Computing SDK. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/poses.png}
+\caption{Hand Poses for Hand Selection States}
+\label{fig:poses}
+\end{figure}
+
+Holograsp currently has two Layer-2 input processing classes. The first examines finger coordinates to distinguish poses based
+on the index finger and the thumb; the point of interest (used for a cursor or a selection point) is located halfway between the tip
+of the thumb and the tip of the index finger, and different states are triggered based on whether the two fingers were pinched
+together or separate, as shown in Figure~\ref{fig:poses}. This was accomplished via a simple finite state machine illustrated in Figure~\ref{fig:fsm}. We also
+applied hysteresis to the state transitions to account for tracking noise; five consecutive frames indicating the same state transition
+were necessary before a state transition occured.
 
 \begin{figure}[h]
 \centering
@@ -289,13 +340,6 @@ When the thumb and forefinger are pinched together, they are detected as one fin
 of interest for selection}
 \label{fig:fsm}
 \end{figure}
-
-Holograsp currently has two Layer-2 input processing classes. The first examines finger coordinates to distinguish poses based
-on the index finger and the thumb; the point of interest (used for a cursor or a selection point) is located halfway between the tip
-of the thumb and the tip of the index finger, and different states are triggered based on whether the two fingers were pinched
-together or were separate. This was accomplished via a simple finite state machine illustrated in Figure~\ref{fig:fsm}. We also
-applied hysteresis to the state transitions to account for tracking noise; five consecutive frames indicating the same state transition
-were necessary before a state transition occured.
 
 The second Layer-2 class is simpler and tends to be more robust, but does not provide multiple tracking states. The mechanism simply selects the closest blob of pixels to the monitor
 as the point of interest. For speed and simplicity, the algorithm looks at neighborhoods of nine pixels to determine the closest blob,
@@ -315,7 +359,7 @@ To convert camera coordinates into world coordinates, we used the simple fiducia
 library \footnote{http://www.hitl.washington.edu/artoolkit/}, first introduced in \cite{artoolkit}. This determines the camera's position
 and orientation in the form of a rotation-translation matrix mapping homogeneous coordinates in world space to camera space.
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[width=0.4\textwidth]{figures/hiro.png}
 \caption{Fiducial Marker used in ARToolkit}
@@ -395,6 +439,7 @@ markers or more sophisticated computer vision techniques to recognize heads in d
 % ------------------------------------- METHDOLOGY ------------------------------------------
 \newpage
 \section{Evaluation Methodology}
+\label{sec:methodology}
 Many previous works, such as \cite{study1,mattheiss2011navigating,study2}, have consistently found the
 mouse to be faster and more precise for 3D manipulation
 tasks than devices with higher degrees of freedom, including in-air devices.
@@ -519,6 +564,7 @@ video games to convey depth information.
 % ------------------------------------- USER STUDY ----------------------------------------
 \newpage
 \section{User Study}
+\label{sec:study}
 \subsection{Procedure}
 The user study was centered around the 3D placement task. Volunteers were solicited
 through word of mouth and departmental Facebook groups. We collected data from 14 participants,
@@ -545,7 +591,7 @@ For each of the four interface combinations (2D-Mouse, 2D-Gesture, 3D-Mouse, and
 run of ten consecutive placement tasks. Participants performed two blocks of these 40 tasks, for a total of $(14)(2)(40) = 1120$
 placement tasks. Each run of tasks was preceded by one untimed task to give the user time to adapt to the interface, and
 in the 3D-Gesture case, perform calibration. In each task, the locations of the target and destination objects were selected uniformly at random in the interaction space. The
-ordering of the interfaces within a run was also randomized; the one exception was that the last interface in a block
+ordering of the four interface combinations within a run was also randomized; the one exception was that the last interface in a block
 would not be selected as the first interface in the subsequent block.
 
 The quantitative data collected was the time in milliseconds for every selection and release event. We did not formally
@@ -666,6 +712,7 @@ interface; for these categories, participants who performed well with the 3D ges
 % ------------------------------------- DISCUSSION ----------------------------------------
 \newpage
 \section{Discussion}
+\label{sec:discussion}
 Overall, no conclusive evidence was found to suggest Holograsp was significantly better than existing interfaces. The difference in mean
 completion times were not significant between the Holograsp interface and mouse interfaces (whether stereoscopic or 2D). However, some very
 interesting results appear when we take stereoscopic perception into account. When we examine participants who expressed no difficulty with
@@ -734,6 +781,7 @@ stereoscopic cues already have a noticeable benefit for intuitive 3D interaction
 
 % ------------------------------------- CONCLUSION ----------------------------------------
 \section{Conclusion}
+\label{sec:conclusion}
 In this paper, we presented the Holograsp system. Holograsp provides a natural way for users to interact with 3D data by colocating gestural interaction
 space with a stereoscopic display volume. Holograsp knows that, if you place your finger on a virtual object, then you are interacting with that object at
 that point. With this sytem, we allow natural interactions such as grabbing a virtual object as if it were a real one.
