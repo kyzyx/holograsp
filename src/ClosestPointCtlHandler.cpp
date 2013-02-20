@@ -118,19 +118,19 @@ void ClosestPointCtlHandler::updateCursorPosition() {
 void ClosestPointCtlHandler::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
 	char s[120];
 	switch(sym) {
-	case SDLK_RIGHTBRACKET: correction[0] += 5;
+	case SDLK_RIGHT: correction[0] += 5;
 				sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
 				//OutputDebugString(s);
 				break;
-	case SDLK_LEFTBRACKET: correction[0] -= 5.f;
+	case SDLK_LEFT: correction[0] -= 5.f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
 				//OutputDebugString(s);
 				break;
-	case SDLK_EQUALS: correction[1] += 5.f;
+	case SDLK_UP: correction[1] += 5.f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
 				//OutputDebugString(s);
 				break;
-	case SDLK_MINUS: correction[1] -= 5.f;
+	case SDLK_DOWN: correction[1] -= 5.f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
 				//OutputDebugString(s);
 				break;
