@@ -27,10 +27,10 @@ public:
 		STATE_ENGAGED,
 	};
 	void setState(int n);
-private:
+protected:
 	bool isDoneTask(); // Returns if target is inside dest satisfactorily
-	void startTask();  // Begins a task: Sets timers and randomizes positions
-	bool inView(double x, double y, double z, double r);     // Returns whether a placement of a sphere is in the valid 3d view area
+	virtual void startTask();  // Begins a task: Sets timers and randomizes positions
+	virtual bool inView(double x, double y, double z, double r);     // Returns whether a placement of a sphere is in the valid 3d view area
 
 	static const float DESTSCALE;
 	static const float TARGETSCALE;

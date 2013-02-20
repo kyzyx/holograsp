@@ -16,7 +16,7 @@ void Visualizer::init(InputManager* m, Renderer* r) {
 
 void Visualizer::draw() {
 	int len = manager->width()*manager->height();
-	render->drawPoints(len, manager->getCoords(), manager->getRGBFrame(), 1.f);
+	render->drawPoints(len, manager->getCoords(), manager->getRGBFrame(), 2.f);
 
 	/*HandData hd = manager->getSkelData();
 	float pts[21];

@@ -11,15 +11,7 @@ public:
 	~GestureCtlHandler(void);
 
 	virtual void update();
-	virtual void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
-		switch(sym) {
-			case SDLK_ESCAPE:
-			case SDLK_q:
-				app->stop();
-			default:
-				break;
-		}
-	}
+	virtual void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
 	int getState() { return state[0]; }
 	enum {
 		NONE,      // No hand sensed

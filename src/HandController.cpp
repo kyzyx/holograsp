@@ -208,9 +208,6 @@ void HandController::closestPoint() {
 			bestcoords[a] = (coords[a] - mindcoords[a] - maxdcoords[a])/n;
 		}
 
-		for (int i = 0; i < 3; ++i) hand[0][i] = bestcoords[i];
-		char tmps[120];
-		sprintf_s(tmps, "%d %d: %.4f %.4f %.4f: %.4f\n", mini, minj, hand[0][0], hand[0][1], hand[0][2], dist2(origin, hand[0]));
-		OutputDebugString(tmps);
+		for (int i = 0; i < 3; ++i) hand[0][i] = bestcoords[i];	
 	}
 }

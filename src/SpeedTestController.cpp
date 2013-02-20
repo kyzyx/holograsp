@@ -1,6 +1,6 @@
 #include "SpeedTestController.h"
 #include "D3DMesh.h"
-
+#include "GLMesh.h"
 
 const float SpeedTestController::DESTSCALE = 0.04f;
 const float SpeedTestController::TARGETSCALE = 0.04f;
@@ -11,18 +11,24 @@ SpeedTestController::SpeedTestController(Renderer* render)
 {
 	srand(time(0));
 	try {
+#ifdef OPENGL_RENDERER
+		dest = new GLMesh("sphere.off", render, true);
+		target = new GLMesh("ico.off", render, true);
+		cursor = new GLMesh("tetra.off", render, true);
+#else
 		dest = new D3DMesh("sphere.off", (D3DRenderer*) render, true);
+		target = new D3DMesh("ico.off", (D3DRenderer*) render, true);
+		cursor = new D3DMesh("tetra.off", (D3DRenderer*) render, true);
+#endif
 		dest->scaleBy(DESTSCALE);
 		dest->setColor(0.0f,1.0f,1.0f,1.0f);
 		meshes.push_back(dest);
-		target = new D3DMesh("ico.off", (D3DRenderer*) render, true);
 		target->scaleBy(TARGETSCALE);
 		meshes.push_back(target);
-		cursor = new D3DMesh("tetra.off", (D3DRenderer*) render, true);
 		cursor->scaleBy(CURSORSCALE);
 		meshes.push_back(cursor);
 	} catch (OFFFileFormatError e) {
-		OutputDebugString(e.err.c_str());
+		//OutputDebugString(e.err.c_str());
 		throw e;
 	}
 }

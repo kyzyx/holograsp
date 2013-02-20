@@ -23,13 +23,15 @@ GestureCtlHandler::GestureCtlHandler(App* myapp, Mesh* m, Mesh* c, InputManager*
 	offscreen[1] = 0;
 	offscreen[2] = 1000;
 
-	correction[0] = -20;
-	correction[1] = 10;
-	correction[2] = 70;
-	linear[0] = 0.85f;
+	correction[0] = 0;
+	correction[1] = 15;
+	correction[2] = 110;  //650 for visualization 
+	linear[0] = 0.8f;
 	linear[1] = 1.f;
-	linear[2] = 1.1f;
+	linear[2] = 1.1f; // 0.3
 	cursor->setTranslation(offscreen);
+	// 0 15 110
+	// 0.8 1 1
 }
 
 
@@ -254,4 +256,63 @@ void GestureCtlHandler::updateCursorPosition() {
 	h.getData(HandData::RIGHT_TIP, hand[1]);
 	updateHand(0, h);
 	//updateHand(1, h);
+}
+
+void GestureCtlHandler::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
+	char s[120];	
+	switch(sym) {
+			case SDLK_RIGHT: correction[0] += 5;
+						sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
+						//OutputDebugString(s);
+						break;
+			case SDLK_LEFT: correction[0] -= 5.f;
+						sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
+						//OutputDebugString(s);
+						break;
+			case SDLK_UP: correction[1] += 5.f;
+						sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
+						//OutputDebugString(s);
+						break;
+			case SDLK_DOWN: correction[1] -= 5.f;
+				sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
+				//OutputDebugString(s);
+				break;
+			case SDLK_SLASH: correction[2] += 5.f;
+				sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
+				//OutputDebugString(s);
+				break;
+			case SDLK_QUOTE: correction[2] -= 5.f;
+				sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
+				//OutputDebugString(s);
+				break;
+			case SDLK_j: linear[0] += 0.05f;
+				sprintf_s(s, "%.4f %.4f %.4f\n", linear[0], linear[1], linear[2]);
+				//OutputDebugString(s);
+				break;
+			case SDLK_n: linear[0] -= 0.05f;
+				sprintf_s(s, "%.4f %.4f %.4f\n", linear[0], linear[1], linear[2]);
+				//OutputDebugString(s);
+				break;
+			case SDLK_o: linear[1] += 0.05f;
+				sprintf_s(s, "%.4f %.4f %.4f\n", linear[0], linear[1], linear[2]);
+				//OutputDebugString(s);
+				break;
+			case SDLK_k: linear[1] -= 0.05f;
+				sprintf_s(s, "%.4f %.4f %.4f\n", linear[0], linear[1], linear[2]);
+				//OutputDebugString(s);
+				break;
+			case SDLK_p: linear[2] += 0.05f;
+				sprintf_s(s, "%.4f %.4f %.4f\n", linear[0], linear[1], linear[2]);
+				//OutputDebugString(s);
+				break;
+			case SDLK_l: linear[2] -= 0.05f;
+				sprintf_s(s, "%.4f %.4f %.4f\n", linear[0], linear[1], linear[2]);
+				//OutputDebugString(s);
+				break;
+			case SDLK_ESCAPE:
+			case SDLK_q:
+				app->stop();
+			default:
+				break;
+		}
 }

@@ -93,7 +93,7 @@ void UtilPipelineInputManager::update() {
 			PXCImage::ImageInfo inf;
 			img->QueryInfo(&inf);
 			if (PXC_STATUS_NO_ERROR != img->AcquireAccess(PXCImage::ACCESS_READ, PXCImage::COLOR_FORMAT_VERTICES, &data)) {
-				OutputDebugString("Error getting depth data\n");
+				//OutputDebugString("Error getting depth data\n");
 			}
 			memcpy(coords, data.planes[0], 3*len*sizeof(short));
 			memcpy(uv, data.planes[2], 2*len*sizeof(float));
@@ -107,7 +107,7 @@ void UtilPipelineInputManager::update() {
 		img = pipeline.QueryImage(PXCImage::IMAGE_TYPE_COLOR);
 		if (img) {
 			if (PXC_STATUS_NO_ERROR != img->AcquireAccess(PXCImage::ACCESS_READ, PXCImage::COLOR_FORMAT_RGB32, &data)) {
-				OutputDebugString("Error getting color data\n");
+				//OutputDebugString("Error getting color data\n");
 			}
 			memcpy(rgb, data.planes[0], 4*leni);
 			img->ReleaseAccess(&data);
