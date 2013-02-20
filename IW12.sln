@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IW12", "src\IW12.vcxproj", "{2B3C8F7D-96D8-4DC6-A234-D6431690A337}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IW12", "IW12\IW12.vcxproj", "{2B3C8F7D-96D8-4DC6-A234-D6431690A337}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

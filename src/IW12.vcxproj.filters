@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\GLClasses">
-      <UniqueIdentifier>{b86485bf-46b3-459d-a1fc-36548fcda435}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GLClasses">
-      <UniqueIdentifier>{2410a3e2-d7da-4b4e-9944-2fa60569cb04}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\AbstractClasses">
       <UniqueIdentifier>{c24ca2c0-2daf-4426-b218-208ec74ed20b}</UniqueIdentifier>
     </Filter>
@@ -36,17 +30,8 @@
     <ClInclude Include="HandData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IWApp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UtilPipelineInputManager.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HandController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GLApp.h">
-      <Filter>Header Files\GLClasses</Filter>
     </ClInclude>
     <ClInclude Include="app.h">
       <Filter>Header Files\AbstractClasses</Filter>
@@ -72,9 +57,6 @@
     <ClInclude Include="Visualizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GLRenderer.h">
-      <Filter>Header Files\GLClasses</Filter>
-    </ClInclude>
     <ClInclude Include="D3DRenderer.h">
       <Filter>Header Files\DirectXClasses</Filter>
     </ClInclude>
@@ -84,14 +66,8 @@
     <ClInclude Include="Mesh.h">
       <Filter>Header Files\AbstractClasses</Filter>
     </ClInclude>
-    <ClInclude Include="GLMesh.h">
-      <Filter>Header Files\GLClasses</Filter>
-    </ClInclude>
     <ClInclude Include="D3DMesh.h">
       <Filter>Header Files\DirectXClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="nvstereo.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="nvapi.h">
       <Filter>Header Files</Filter>
@@ -120,6 +96,9 @@
     <ClInclude Include="VisualizationApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="nvstereo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -128,17 +107,8 @@
     <ClCompile Include="HandData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IWApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UtilPipelineInputManager.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HandController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GLApp.cpp">
-      <Filter>Source Files\GLClasses</Filter>
     </ClCompile>
     <ClCompile Include="app.cpp">
       <Filter>Source Files\AbstractClasses</Filter>
@@ -158,23 +128,14 @@
     <ClCompile Include="Visualizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GLRenderer.cpp">
-      <Filter>Source Files\GLClasses</Filter>
-    </ClCompile>
     <ClCompile Include="D3DRenderer.cpp">
       <Filter>Source Files\DirectXClasses</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\AbstractClasses</Filter>
     </ClCompile>
-    <ClCompile Include="GLMesh.cpp">
-      <Filter>Source Files\GLClasses</Filter>
-    </ClCompile>
     <ClCompile Include="D3DMesh.cpp">
       <Filter>Source Files\DirectXClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="nvstereo.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SpeedTestController.cpp">
       <Filter>Source Files\DirectXClasses</Filter>
@@ -195,6 +156,9 @@
       <Filter>Source Files\AbstractClasses</Filter>
     </ClCompile>
     <ClCompile Include="VisualizationApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="nvstereo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

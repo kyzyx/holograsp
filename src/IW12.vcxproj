@@ -31,7 +31,6 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="OpenGL.props" />
     <Import Project="PCSDK_debug.props" />
     <Import Project="D3D11.props" />
     <Import Project="tmp.props" />
@@ -40,7 +39,6 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="SDL.props" />
-    <Import Project="OpenGL.props" />
     <Import Project="D3D11_release.props" />
     <Import Project="tmp.props" />
     <Import Project="PCSDK_debug.props" />
@@ -88,13 +86,8 @@
     <ClInclude Include="ExperimentalApp.h" />
     <ClInclude Include="Filter.h" />
     <ClInclude Include="GestureCtlHandler.h" />
-    <ClInclude Include="GLApp.h" />
-    <ClInclude Include="GLMesh.h" />
-    <ClInclude Include="GLRenderer.h" />
-    <ClInclude Include="HandController.h" />
     <ClInclude Include="HandData.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="IWApp.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCtlHandler.h" />
     <ClInclude Include="ModelController.h" />
@@ -119,12 +112,7 @@
     <ClCompile Include="ExperimentalApp.cpp" />
     <ClCompile Include="Filter.cpp" />
     <ClCompile Include="GestureCtlHandler.cpp" />
-    <ClCompile Include="GLApp.cpp" />
-    <ClCompile Include="GLMesh.cpp" />
-    <ClCompile Include="GLRenderer.cpp" />
-    <ClCompile Include="HandController.cpp" />
     <ClCompile Include="HandData.cpp" />
-    <ClCompile Include="IWApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCtlHandler.cpp" />
