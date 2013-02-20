@@ -82,19 +82,18 @@ protected:
 
 class GestureExpApp : public ExperimentalApp {
 public:
-	GestureExpApp(bool is3d) : ExperimentalApp(is3d) {
-		manager = NULL;
+	GestureExpApp(bool is3d, const char* user, int n) : ExperimentalApp(is3d, user, n) {
+		manager = new UtilPipelineInputManager();
+		if (!manager->init()) {
+			//OutputDebugString("Failed to initialize depth camera\n");
+			throw std::exception();
+		}
 	}
 	~GestureExpApp() {
 		if (manager) delete manager;
 	}
 protected:
 	virtual bool initControl() {
-		manager = new UtilPipelineInputManager();
-		if (!manager->init()) {
-			OutputDebugString("Failed to initialize depth camera\n");
-			return false;
-		}
 		myhandler = new GestureCtlHandler(this, s->getMesh(SpeedTestController::MESH_TARGET), s->getMesh(SpeedTestController::MESH_CURSOR), manager);
 		return true;
 	}
@@ -134,7 +133,7 @@ public:
 	CPExpApp(bool is3d, const char* user, int n) : ExperimentalApp(is3d, user, n) {
 		manager = new UtilPipelineInputManager();
 		if (!manager->init()) {
-			OutputDebugString("Failed to initialize depth camera\n");
+			//OutputDebugString("Failed to initialize depth camera\n");
 			throw std::exception();
 		}
 	}

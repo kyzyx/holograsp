@@ -29,9 +29,15 @@ int App::onExecute() {
 	SDL_Event ev;
 	while (running) {
 		while (SDL_PollEvent(&ev)) {
-			if (handler) handler->OnEvent(&ev);
+			if (handler) {
+				handler->OnEvent(&ev);
+				for (int i = 0; i < handlers.size(); ++i) handlers[i]->OnEvent(&ev);
+			}
 		}
-		if (handler) handler->update();
+		if (handler) {
+			handler->update();
+			for (int i = 0; i < handlers.size(); ++i) handlers[i]->update();
+		}
 		onLoop();
 		onRender();
 	}
@@ -66,5 +72,6 @@ void App::onCleanup(){
 	if (handler) {
 		delete handler;
 		handler = NULL;
+		for (int i = 0; i < handlers.size(); ++i) delete handlers[i];
 	}
 }

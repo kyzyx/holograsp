@@ -79,7 +79,7 @@ void ExperimentalApp::onLoop() {
 			try {
 				s = new SpeedTestController(render);
 			} catch (OFFFileFormatError e) {
-				OutputDebugString(e.err.c_str());
+				//OutputDebugString(e.err.c_str());
 				stage = STAGE_ERROR;
 				return;
 			}		
@@ -130,7 +130,7 @@ void ExperimentalApp::onRender(){
 		render->drawText(L"Welcome to the Test\nPlease put on the 3D glasses.", width/2.f, height/3.f, 0xff0000ff, 40.f);
 		render->drawText(L"Press SPACE to continue!", width/2.f, 3*height/4.f, 0xff0000ff, 32.f);
 	} else if (stage == STAGE_ERROR) {
-			render->drawText(L"Oops! Something went wrong. Please check with Edward.", width/2.f, height/2.f, 0xff0000ff, 32.f);
+		render->drawText(L"Oops! Something went wrong. Please check with Edward.", width/2.f, height/2.f, 0xff0000ff, 32.f);
 	}
 	render->display();
 }

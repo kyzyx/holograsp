@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include "SDLHandler.h"
 #include <Windows.h>
+#include <vector>
 
 class SDLHandler;
 
@@ -17,11 +18,6 @@ class App {
 		virtual void onRender();
 		virtual void onCleanup();
 
-		void printFloat(const char* s, double f) {
-			static char tmp[200];
-			sprintf_s(tmp, "%s: %f\n", s, f);
-			OutputDebugString(tmp);
-		}
 		int getWidth() const { return width; }
 		int getHeight() const { return height; }
 		bool isFullscreen() const { return fullscreen; }
@@ -30,6 +26,7 @@ class App {
 		bool running;
 		bool fullscreen;
 		SDLHandler* handler;
+		std::vector<SDLHandler*> handlers;
 		SDL_Surface* screen;
 
 		int width;

@@ -19,5 +19,6 @@ protected:
 	virtual void updateCursorPosition();
 
 	Filter* coordfilters[3];
+	bool visualize;
 };
 

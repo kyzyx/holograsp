@@ -8,9 +8,10 @@ ClosestPointCtlHandler::ClosestPointCtlHandler(App* myapp, Mesh* m, Mesh* c, Inp
 	: GestureCtlHandler(myapp, m, c, mgr)
 {
 	for (int i = 0; i < 3; ++i) {
-		coordfilters[i] = new DoubleAvgFilter(5);
+		coordfilters[i] = new DoubleAvgFilter(8);
 		//coordfilters[i] = new AdaptiveDoubleExpFilter(0.3, 0.9, 0.5, 0.9, 0.02, 0.4);
 	}
+	visualize = false;
 }
 ClosestPointCtlHandler::~ClosestPointCtlHandler(void) {
 	for (int i = 0; i < 3; ++i) delete coordfilters[i];
@@ -102,13 +103,14 @@ void ClosestPointCtlHandler::updateCursorPosition() {
 		for (int i = 0; i < 3; ++i) {
 			tip[i] = (float)(1000*coordfilters[i]->get());
 		}
-		tip[0] *= -1; tip[1] *= -1;
-		GestureCoordsToWorldCoords(tip, tmp);
-		WorldCoordsToScreenCoords(tmp, newloc);
+		if (!visualize) {
+			tip[0] *= -1; tip[1] *= -1;
+			GestureCoordsToWorldCoords(tip, tmp);
+			WorldCoordsToScreenCoords(tmp, newloc);
+		} else {
+			for (int i = 0; i < 3; ++i) newloc[i] = tip[i]/1000.;
+		}
 		for (int i = 0; i < 3; ++i) delta[i] = newloc[i] - cursor->getTranslation()[i];
-		/*char deb[200];
-		sprintf_s(deb, "%.4f %.4f %.4f | %.4f %.4f %.4f\n", tmp[0], tmp[1], tmp[2], newloc[0], newloc[1], newloc[2]);
-		OutputDebugString(deb);*/
 		cursor->setTranslation(newloc);
 	}
 }
@@ -116,63 +118,63 @@ void ClosestPointCtlHandler::updateCursorPosition() {
 void ClosestPointCtlHandler::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
 	char s[120];
 	switch(sym) {
-	case SDLK_RIGHT: correction[0] += 5;
+	case SDLK_RIGHTBRACKET: correction[0] += 5;
 				sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
-				OutputDebugString(s);
+				//OutputDebugString(s);
 				break;
-	case SDLK_LEFT: correction[0] -= 5.f;
+	case SDLK_LEFTBRACKET: correction[0] -= 5.f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
-				OutputDebugString(s);
+				//OutputDebugString(s);
 				break;
-	case SDLK_UP: correction[1] += 5.f;
+	case SDLK_EQUALS: correction[1] += 5.f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
-				OutputDebugString(s);
+				//OutputDebugString(s);
 				break;
-			case SDLK_DOWN: correction[1] -= 5.f;
+	case SDLK_MINUS: correction[1] -= 5.f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
-				OutputDebugString(s);
+				//OutputDebugString(s);
 				break;
 			case SDLK_SLASH: correction[2] += 5.f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
-				OutputDebugString(s);
+				//OutputDebugString(s);
 				break;
 			case SDLK_QUOTE: correction[2] -= 5.f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", correction[0], correction[1], correction[2]);
-				OutputDebugString(s);
+				//OutputDebugString(s);
 				break;
 			case SDLK_j: linear[0] += 0.05f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", linear[0], linear[1], linear[2]);
-				OutputDebugString(s);
+				//OutputDebugString(s);
 				break;
 			case SDLK_n: linear[0] -= 0.05f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", linear[0], linear[1], linear[2]);
-				OutputDebugString(s);
+				//OutputDebugString(s);
 				break;
 			case SDLK_o: linear[1] += 0.05f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", linear[0], linear[1], linear[2]);
-				OutputDebugString(s);
+				//OutputDebugString(s);
 				break;
 			case SDLK_k: linear[1] -= 0.05f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", linear[0], linear[1], linear[2]);
-				OutputDebugString(s);
+				//OutputDebugString(s);
 				break;
 			case SDLK_p: linear[2] += 0.05f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", linear[0], linear[1], linear[2]);
-				OutputDebugString(s);
+				//OutputDebugString(s);
 				break;
 			case SDLK_l: linear[2] -= 0.05f;
 				sprintf_s(s, "%.4f %.4f %.4f\n", linear[0], linear[1], linear[2]);
-				OutputDebugString(s);
+				//OutputDebugString(s);
 				break;
 		case SDLK_SPACE:
-			if (dist2(mesh->getTranslation(), cursor->getTranslation()) < THRESHOLD) {
-				selected = true;
-			}
+            if (dist2(mesh->getTranslation(), cursor->getTranslation()) < THRESHOLD) {
+                selected = true;
+            }
 			break;
 		case SDLK_RETURN:
 			{
 				sprintf_s(s, "%.4f %.4f %.4f\n", coordfilters[0]->get(), coordfilters[1]->get(), coordfilters[2]->get());
-				OutputDebugString(s);
+				//OutputDebugString(s);
 				break;
 			}
 		case SDLK_ESCAPE:

@@ -41,8 +41,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="SDL.props" />
     <Import Project="OpenGL.props" />
-    <Import Project="PCSDK_release.props" />
     <Import Project="D3D11_release.props" />
+    <Import Project="tmp.props" />
+    <Import Project="PCSDK_debug.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -67,6 +68,8 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -102,8 +105,8 @@
     <ClInclude Include="SDLHandler.h" />
     <ClInclude Include="SpeedTestController.h" />
     <ClInclude Include="StatusScreenHandler.h" />
-    <ClInclude Include="StereoApp.h" />
     <ClInclude Include="UtilPipelineInputManager.h" />
+    <ClInclude Include="VisualizationApp.h" />
     <ClInclude Include="Visualizer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -129,8 +132,8 @@
     <ClCompile Include="nvstereo.cpp" />
     <ClCompile Include="SDLHandler.cpp" />
     <ClCompile Include="SpeedTestController.cpp" />
-    <ClCompile Include="StereoApp.cpp" />
     <ClCompile Include="UtilPipelineInputManager.cpp" />
+    <ClCompile Include="VisualizationApp.cpp" />
     <ClCompile Include="Visualizer.cpp" />
   </ItemGroup>
   <ItemGroup>
