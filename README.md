@@ -19,5 +19,14 @@ Setup Instructions
     - [Intel Perceptual Computing SDK](http://software.intel.com/en-us/vcsource/tools/perceptual-computing-sdk)
 
 3. Installation Instructions (may be incomplete, please contact me for troubleshooting)
-    a. Unzip source to new location
-    b. Update property pages to point to library locations, i.e. include and library folders for the DirectX SDK, Perceptual Computing SDK, SDL, and FW1. 
+    - Unzip source to new location
+    - Update property pages to point to library locations, i.e. include and library folders for the DirectX SDK, Perceptual Computing SDK, SDL, and FW1. 
+
+4. Using the Application
+    - Optimal setup is with the camera mounted on top of the monitor at approximately a 30 degree downward angle, with the user sitting about 80cm in front of the screen. 
+    - Make sure stereoscopic 3D is turned on via the Nvidia control panel.
+    - The current prototype application is an experiment that times how long it takes to translate the red icosahedron into the blue spheroid. The green tetrahedron indicates your finger position (cursor position) for calibration.
+    - If you are not experienced with stereoscopic 3D, make sure you take awhile to test out the pop-out effects. Try and converge your eyes until you can see the objects on screen as a single object in front of you, rather than double images onscreen.
+    - Calibration is very hacky right now. Use the arrow keys to adjust the position of the cursor until it appears to float slightly above your outstretched finger. To adjust the apparent depth, use the slash (/) and quote (') keys. 
+    - For maximum robustness, the application tracks the closest blob to the camera as the "cursor position". The cursor position is indicated by the green tetrahedron. To select the icosahedron, place your finger right underneath the apparent location of the icosahedron. If calibration worked correctly, the cursor position should be snugly within the icosahedron and it will change color to blue. 
+    - Hold down the spacebar while you move your finger to drag the icosahedron with your finger. Release the spacebar to place the object. If you place the icosahedron into the blue spheroid, you will have your time recorded and be presented with a new task.
